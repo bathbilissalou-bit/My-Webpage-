@@ -38,6 +38,13 @@ interface Selection {
   designId: string;
   fitId: string;
   notes: string;
+  // Measurements (chest + height required; waist, hips, shoulder, inseam optional)
+  chest: string;
+  waist: string;
+  hips: string;
+  height: string;
+  shoulder: string;
+  inseam: string;
   name: string;
   email: string;
   appointment: string;
@@ -45,7 +52,9 @@ interface Selection {
 
 const EMPTY_SEL: Selection = {
   colorIdx: -1, fabricId: "", designId: "", fitId: "",
-  notes: "", name: "", email: "", appointment: "",
+  notes: "",
+  chest: "", waist: "", hips: "", height: "", shoulder: "", inseam: "",
+  name: "", email: "", appointment: "",
 };
 
 function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct; onClose: () => void }) {
@@ -75,21 +84,35 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
   const selectedDesign = DESIGN_OPTIONS.find(d => d.id === sel.designId) ?? null;
   const selectedFit    = FIT_OPTIONS.find(f => f.id === sel.fitId) ?? null;
 
-  const canSubmit = !!(sel.name && sel.email);
+  const hasMeasurements = !!(sel.chest.trim() && sel.height.trim());
+  const hasAppointment  = sel.appointment.trim().length > 2;
+  const hasContact      = !!(sel.name.trim() && sel.email.trim());
+
+  const [triedSubmit, setTriedSubmit] = useState(false);
 
   const handleSubmit = async () => {
-    if (!canSubmit) return;
+    setTriedSubmit(true);
+    if (!hasContact || !hasMeasurements || !hasAppointment) return;
     setSubmitting(true);
     setSubmitError(false);
+    const measurementSummary = [
+      `Chest/Bust: ${sel.chest}"`,
+      sel.waist    ? `Waist: ${sel.waist}"`       : "",
+      sel.hips     ? `Hips: ${sel.hips}"`         : "",
+      `Height: ${sel.height}"`,
+      sel.shoulder ? `Shoulder: ${sel.shoulder}"` : "",
+      sel.inseam   ? `Inseam: ${sel.inseam}"`     : "",
+    ].filter(Boolean).join(", ");
     const msg = [
       `Product: ${product.name}`,
       `Price Range: ${product.price}`,
-      selectedColor  ? `Color: ${selectedColor.name}`            : "Color: Not selected",
+      selectedColor  ? `Color: ${selectedColor.name}`                          : "Color: Not selected",
       selectedFabric ? `Fabric: ${selectedFabric.grade} — ${selectedFabric.desc}` : "Fabric: Not selected",
-      selectedDesign ? `Design Style: ${selectedDesign.name}`    : "Design Style: Not selected",
-      selectedFit    ? `Fit: ${selectedFit.name}`                : "Fit: Not selected",
-      sel.notes      ? `Custom Notes: ${sel.notes}`              : "",
-      sel.appointment ? `Appointment Preference: ${sel.appointment}` : "",
+      selectedDesign ? `Design Style: ${selectedDesign.name}`                  : "Design Style: Not selected",
+      selectedFit    ? `Fit: ${selectedFit.name}`                              : "Fit: Not selected",
+      `Measurements: ${measurementSummary}`,
+      sel.notes       ? `Custom Notes: ${sel.notes}`                           : "",
+      `Appointment Preference: ${sel.appointment}`,
     ].filter(Boolean).join("\n");
 
     try {
@@ -195,15 +218,17 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
             <div style={{ fontSize: "0.55rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 16 }}>
               {cfg.summaryTitle[lang]}
             </div>
-            {[
-              [cfg.summaryColor[lang],  selectedColor?.name  ?? ""],
-              [cfg.summaryFabric[lang], selectedFabric?.grade ?? ""],
-              [cfg.summaryDesign[lang], selectedDesign?.name  ?? ""],
-              [cfg.summaryFit[lang],    selectedFit?.name     ?? ""],
-            ].map(([label, value]) => (
+            {([
+              [cfg.summaryColor[lang],        selectedColor?.name  ?? ""],
+              [cfg.summaryFabric[lang],        selectedFabric?.grade ?? ""],
+              [cfg.summaryDesign[lang],        selectedDesign?.name  ?? ""],
+              [cfg.summaryFit[lang],           selectedFit?.name     ?? ""],
+              [cfg.summaryMeasurements[lang],  hasMeasurements ? cfg.summaryMeasurementsOk[lang] : ""],
+              [cfg.summaryAppointment[lang],   hasAppointment  ? cfg.summaryAppointmentOk[lang]  : ""],
+            ] as [string, string][]).map(([label, value]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 10, marginBottom: 10, borderBottom: "1px solid var(--border)" }}>
                 <span style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)" }}>{label}</span>
-                <span style={{ fontSize: "0.75rem", color: value ? "var(--text)" : "var(--text-dim)", fontStyle: value ? "normal" : "italic" }}>
+                <span style={{ fontSize: "0.75rem", color: value ? "var(--gold)" : "var(--text-dim)", fontStyle: value ? "normal" : "italic" }}>
                   {value || cfg.summaryNone[lang]}
                 </span>
               </div>
@@ -328,6 +353,38 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
             </div>
           </Section>
 
+          {/* Section: Measurements — required */}
+          <Section label={cfg.measurementsTitle[lang]} required>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              {([
+                ["chest",    cfg.mChest[lang]],
+                ["waist",    cfg.mWaist[lang]],
+                ["hips",     cfg.mHips[lang]],
+                ["height",   cfg.mHeight[lang]],
+                ["shoulder", cfg.mShoulder[lang]],
+                ["inseam",   cfg.mInseam[lang]],
+              ] as [keyof Selection, string][]).map(([key, ph]) => (
+                <input
+                  key={key}
+                  className={`field${triedSubmit && (key === "chest" || key === "height") && !sel[key] ? " field--error" : ""}`}
+                  type="number"
+                  step="0.5"
+                  min="0"
+                  inputMode="decimal"
+                  placeholder={ph}
+                  value={sel[key] as string}
+                  onChange={e => set(key, e.target.value)}
+                />
+              ))}
+            </div>
+            <p style={{ marginTop: 12, fontSize: "0.68rem", color: "var(--text-dim)", lineHeight: 1.7 }}>
+              {cfg.measurementsHint[lang]}
+            </p>
+            {triedSubmit && !hasMeasurements && (
+              <ValidationError>{cfg.errorMeasurements[lang]}</ValidationError>
+            )}
+          </Section>
+
           {/* Section: Custom Notes */}
           <Section label={cfg.notesTitle[lang]}>
             <textarea
@@ -344,13 +401,19 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <input className="field" type="text" placeholder={cfg.namePH[lang]} value={sel.name} onChange={e => set("name", e.target.value)} />
               <input className="field" type="email" placeholder={cfg.emailPH[lang]} value={sel.email} onChange={e => set("email", e.target.value)} />
+              {triedSubmit && !hasContact && (
+                <ValidationError>{cfg.errorContact[lang]}</ValidationError>
+              )}
               <textarea
-                className="field"
+                className={`field${triedSubmit && !hasAppointment ? " field--error" : ""}`}
                 placeholder={cfg.appointmentPH[lang]}
                 value={sel.appointment}
                 onChange={e => set("appointment", e.target.value)}
                 style={{ height: 80, resize: "vertical" }}
               />
+              {triedSubmit && !hasAppointment && (
+                <ValidationError>{cfg.errorAppointment[lang]}</ValidationError>
+              )}
             </div>
             <p style={{ marginTop: 12, fontSize: "0.68rem", color: "var(--text-dim)", lineHeight: 1.7 }}>
               {cfg.requirementNote[lang]}
@@ -373,17 +436,17 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
         gap: 24, flexShrink: 0,
         background: "var(--bg)",
       }}>
-        <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", lineHeight: 1.5, flex: 1 }}>
-          {!sel.name || !sel.email
-            ? <span style={{ color: "var(--text-dim)", fontStyle: "italic" }}>{cfg.ctaHint[lang]}</span>
-            : <span style={{ color: "var(--gold)" }}>✓ {sel.name} · {product.name}</span>
+        <div style={{ fontSize: "0.65rem", lineHeight: 1.6, flex: 1 }}>
+          {hasContact && hasMeasurements && hasAppointment
+            ? <span style={{ color: "var(--gold)" }}>✓ {sel.name} · {product.name}</span>
+            : <span style={{ color: "var(--text-dim)", fontStyle: "italic" }}>{cfg.ctaHint[lang]}</span>
           }
         </div>
         <button
           onClick={handleSubmit}
-          disabled={!canSubmit || submitting}
+          disabled={submitting}
           className="btn-primary"
-          style={{ flexShrink: 0, opacity: (!canSubmit || submitting) ? 0.5 : 1, cursor: (!canSubmit || submitting) ? "not-allowed" : "pointer" }}
+          style={{ flexShrink: 0, opacity: submitting ? 0.5 : 1, cursor: submitting ? "not-allowed" : "pointer" }}
         >
           {submitting ? cfg.submittingBtn[lang] : cfg.submitBtn[lang]}
         </button>
@@ -418,6 +481,7 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
           border-color: var(--gold) !important;
           background: rgba(201,169,110,0.07) !important;
         }
+        .field--error { border-color: #8a3030 !important; }
         @media (max-width: 768px) {
           .cfg-left { display: none; }
           .design-grid { grid-template-columns: 1fr; }
@@ -427,6 +491,19 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
         }
       `}</style>
     </Overlay>
+  );
+}
+
+function ValidationError({ children }: { children: ReactNode }) {
+  return (
+    <div style={{
+      display: "flex", alignItems: "flex-start", gap: 10,
+      padding: "12px 16px", marginTop: 10,
+      border: "1px solid #8a3030", background: "rgba(90,20,20,0.18)",
+    }}>
+      <div style={{ width: 5, height: 5, background: "#e88", transform: "rotate(45deg)", flexShrink: 0, marginTop: 4 }} />
+      <span style={{ fontSize: "0.78rem", color: "#e88", lineHeight: 1.6 }}>{children}</span>
+    </div>
   );
 }
 

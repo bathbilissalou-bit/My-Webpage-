@@ -395,16 +395,47 @@ export const t = {
       "Les mesures seront confirmées lors de votre rendez-vous de fitting. Un membre de notre équipe vous contactera sous 24h pour planifier.",
       "Las medidas se confirmarán en su cita de fitting. Un miembro de nuestro equipo se pondrá en contacto en menos de 24 horas."
     ),
-    summaryTitle:     s("Your Selection",            "Votre Sélection",                 "Su Selección"),
-    summaryColor:     s("Color",                     "Couleur",                         "Color"),
-    summaryFabric:    s("Fabric",                    "Tissu",                           "Tejido"),
-    summaryDesign:    s("Design",                    "Style",                           "Diseño"),
-    summaryFit:       s("Fit",                       "Coupe",                           "Corte"),
-    summaryNone:      s("Not selected",              "Non sélectionné",                 "No seleccionado"),
+    measurementsTitle: s("Your Measurements",        "Vos Mensurations",                "Sus Medidas"),
+    measurementsHint:  s(
+      "Chest / Bust and Height are required. All measurements in inches.",
+      "Poitrine et Hauteur sont obligatoires. Toutes les mesures en pouces.",
+      "Pecho / Busto y Altura son obligatorios. Todas las medidas en pulgadas."
+    ),
+    mChest:    s("Chest / Bust (in) *", "Poitrine (po) *",     "Pecho / Busto (pulg) *"),
+    mWaist:    s("Waist (in)",          "Taille (po)",         "Cintura (pulg)"),
+    mHips:     s("Hips (in)",           "Hanches (po)",        "Caderas (pulg)"),
+    mHeight:   s("Height (in) *",       "Hauteur (po) *",      "Altura (pulg) *"),
+    mShoulder: s("Shoulder (in)",       "Épaules (po)",        "Hombros (pulg)"),
+    mInseam:   s("Inseam (in)",         "Entrejambe (po)",     "Entrepierna (pulg)"),
+    errorMeasurements: s(
+      "Please complete your measurements before submitting your commission request.",
+      "Veuillez compléter vos mensurations avant de soumettre votre demande.",
+      "Por favor, complete sus medidas antes de enviar su solicitud de comisión."
+    ),
+    errorAppointment: s(
+      "Please select or request an appointment before submitting.",
+      "Veuillez sélectionner ou demander un rendez-vous avant de soumettre.",
+      "Por favor, seleccione o solicite una cita antes de enviar."
+    ),
+    errorContact: s(
+      "Please provide your name and email address.",
+      "Veuillez indiquer votre nom et adresse email.",
+      "Por favor, proporcione su nombre y dirección de email."
+    ),
+    summaryTitle:        s("Your Selection",        "Votre Sélection",          "Su Selección"),
+    summaryColor:        s("Color",                 "Couleur",                  "Color"),
+    summaryFabric:       s("Fabric",                "Tissu",                    "Tejido"),
+    summaryDesign:       s("Design",                "Style",                    "Diseño"),
+    summaryFit:          s("Fit",                   "Coupe",                    "Corte"),
+    summaryMeasurements: s("Measurements",          "Mensurations",             "Medidas"),
+    summaryMeasurementsOk: s("Provided",            "Fournies",                 "Provistas"),
+    summaryAppointment:  s("Appointment",           "Rendez-vous",              "Cita"),
+    summaryAppointmentOk: s("Requested",            "Demandé",                  "Solicitada"),
+    summaryNone:         s("Not selected",          "Non sélectionné",          "No seleccionado"),
     ctaHint:          s(
-      "Add your name and email to submit your commission request.",
-      "Ajoutez votre nom et email pour soumettre votre demande.",
-      "Agregue su nombre y email para enviar su solicitud."
+      "Complete measurements and appointment to submit your commission request.",
+      "Complétez vos mesures et rendez-vous pour soumettre votre demande.",
+      "Complete sus medidas y cita para enviar su solicitud de comisión."
     ),
     submitBtn:        s("Request This Piece",        "Demander cette Pièce",            "Solicitar esta Pieza"),
     submittingBtn:    s("Submitting...",             "Envoi en cours...",               "Enviando..."),
