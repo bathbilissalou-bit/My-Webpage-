@@ -105,6 +105,13 @@ export default async function handler(req: any, res: any) {
   if (!name || !email || !message) {
     return res.status(400).json({ error: "Name, email, and message are required." });
   }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) {
+    return res.status(400).json({ error: "Please enter a valid email address." });
+  }
+  if (String(message).length > 8000) {
+    return res.status(400).json({ error: "Message is too long." });
+  }
 
   const timestamp = new Date().toISOString();
   const isCommission = subject === "commission-request";

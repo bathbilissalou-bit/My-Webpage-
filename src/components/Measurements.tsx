@@ -377,6 +377,7 @@ export function Measurements() {
                     step="0.5"
                     min="0"
                     inputMode="decimal"
+                    aria-label={label}
                     placeholder={(t.measurements as Record<string, { en: string; fr: string; es: string }>)[phKey][lang]}
                     value={fields[stateKey]}
                     onChange={e => setField(stateKey, e.target.value)}

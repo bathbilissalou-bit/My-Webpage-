@@ -243,6 +243,8 @@ export function SurMesureFlow() {
                     src={p.src}
                     alt={p.label}
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: "100%", height: "100%",
                       objectFit: "cover", objectPosition: "center top",
@@ -329,7 +331,7 @@ export function SurMesureFlow() {
                 style={{ borderColor: selected ? "var(--gold)" : "var(--border)" }}>
                 <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "var(--bg-3)" }}>
                   {item.img
-                    ? <img src={item.img} alt={item.name[lang]} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.5s" }} className="atl-img-zoom" />
+                    ? <img src={item.img} alt={item.name[lang]} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.5s" }} className="atl-img-zoom" />
                     : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <span className="serif" style={{ fontSize: "2rem", color: "var(--border)", fontStyle: "italic" }}>HP</span>
                       </div>

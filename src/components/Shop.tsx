@@ -37,6 +37,8 @@ export function Shop() {
                     src={catalogItem.image}
                     alt={product.name[lang]}
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
                     style={{ pointerEvents: "none" }}
                   />
                   <div className="product-overlay">

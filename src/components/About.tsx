@@ -54,6 +54,8 @@ export function About() {
             src="/img-hero-blue.jpg"
             alt="HavrePlacide blue tunique portrait"
             draggable={false}
+            loading="lazy"
+            decoding="async"
             style={{
               width: "100%", height: "100%",
               objectFit: "cover", objectPosition: "center 8%",

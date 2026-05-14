@@ -36,9 +36,10 @@ export function OnboardingWelcome() {
   }, []);
 
   const dismiss = () => {
+    if (leaving) return;
     setLeaving(true);
     localStorage.setItem(STORAGE_KEY, "1");
-    setTimeout(() => setVisible(false), 500);
+    setTimeout(() => setVisible(false), 480);
   };
 
   if (!visible) return null;

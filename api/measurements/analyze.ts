@@ -86,7 +86,17 @@ Omit fields you cannot estimate. Be honest about confidence.`,
     });
 
     const text = response.content[0].type === "text" ? response.content[0].text : "";
-    const result = JSON.parse(text.replace(/```json|```/g, "").trim());
+    let result: Record<string, string>;
+    try {
+      result = JSON.parse(text.replace(/```json|```/g, "").trim());
+    } catch {
+      return res.status(200).json({
+        comingSoon: false,
+        recommendedSize: "—",
+        notes: "We received your photo but could not parse the measurements automatically. Our team will review and follow up.",
+        confidence: "Manual review required",
+      });
+    }
 
     const timestamp = new Date().toISOString();
     const measurementSummary = [

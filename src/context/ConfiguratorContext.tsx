@@ -435,7 +435,7 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
                 <div key={key} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <span style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                      {ph.replace(/" \*$/, "").replace(/ \(in\)$/, "")}
+                      {ph.replace(/\s*\([^)]+\)\s*\*?\s*$/, "").replace(/\s*\*\s*$/, "").trim()}
                     </span>
                     <HelpIcon measurementKey={guideKey} />
                   </div>

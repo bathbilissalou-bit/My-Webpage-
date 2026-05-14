@@ -40,7 +40,7 @@ export function Lookbook() {
             onClick={() => open(lookImages, 0)}
             onContextMenu={e => e.preventDefault()}
           >
-            <img src={lookImages[0].src} alt={lookImages[0].alt} draggable={false} style={imgStyle} />
+            <img src={lookImages[0].src} alt={lookImages[0].alt} draggable={false} loading="lazy" decoding="async" style={imgStyle} />
             <div className="look-overlay" />
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 24, background: "linear-gradient(transparent, rgba(0,0,0,0.7))", pointerEvents: "none" }}>
               <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 8 }}>{lookImages[0].label}</div>
@@ -56,7 +56,7 @@ export function Lookbook() {
               onClick={() => open(lookImages, i + 1)}
               onContextMenu={e => e.preventDefault()}
             >
-              <img src={look.src} alt={look.alt} draggable={false} style={imgStyle} />
+              <img src={look.src} alt={look.alt} draggable={false} loading="lazy" decoding="async" style={imgStyle} />
               <div className="look-overlay" />
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 16, background: "linear-gradient(transparent, rgba(0,0,0,0.7))", pointerEvents: "none" }}>
                 <div style={{ fontSize: "0.55rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 6 }}>{look.label}</div>

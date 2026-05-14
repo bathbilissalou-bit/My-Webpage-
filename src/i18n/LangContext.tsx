@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { Lang } from "./translations";
 
 const LangContext = createContext<{
@@ -16,6 +16,11 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("hp-lang", l);
     setLangState(l);
   };
+
+  // Keep <html lang="..."> in sync for screen readers and SEO
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   return (
     <LangContext.Provider value={{ lang, setLang }}>
