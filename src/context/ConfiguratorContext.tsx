@@ -84,7 +84,7 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
   const selectedDesign = DESIGN_OPTIONS.find(d => d.id === sel.designId) ?? null;
   const selectedFit    = FIT_OPTIONS.find(f => f.id === sel.fitId) ?? null;
 
-  const hasMeasurements = !!(sel.chest.trim() && sel.height.trim());
+  const hasMeasurements = !!(sel.chest.trim() && sel.waist.trim() && sel.hips.trim() && sel.height.trim() && sel.shoulder.trim() && sel.inseam.trim());
   const hasAppointment  = sel.appointment.trim().length > 2;
   const hasContact      = !!(sel.name.trim() && sel.email.trim());
 
@@ -366,7 +366,7 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
               ] as [keyof Selection, string][]).map(([key, ph]) => (
                 <input
                   key={key}
-                  className={`field${triedSubmit && (key === "chest" || key === "height") && !sel[key] ? " field--error" : ""}`}
+                  className={`field${triedSubmit && !sel[key] ? " field--error" : ""}`}
                   type="number"
                   step="0.5"
                   min="0"

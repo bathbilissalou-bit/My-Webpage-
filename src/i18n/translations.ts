@@ -397,16 +397,16 @@ export const t = {
     ),
     measurementsTitle: s("Your Measurements",        "Vos Mensurations",                "Sus Medidas"),
     measurementsHint:  s(
-      "Chest / Bust and Height are required. All measurements in inches.",
-      "Poitrine et Hauteur sont obligatoires. Toutes les mesures en pouces.",
-      "Pecho / Busto y Altura son obligatorios. Todas las medidas en pulgadas."
+      "All six measurements are required for full tailoring accuracy. All in inches.",
+      "Les six mesures sont obligatoires pour une précision de coupe optimale. En pouces.",
+      "Las seis medidas son obligatorias para máxima precisión de corte. En pulgadas."
     ),
     mChest:    s("Chest / Bust (in) *", "Poitrine (po) *",     "Pecho / Busto (pulg) *"),
-    mWaist:    s("Waist (in)",          "Taille (po)",         "Cintura (pulg)"),
-    mHips:     s("Hips (in)",           "Hanches (po)",        "Caderas (pulg)"),
+    mWaist:    s("Waist (in) *",        "Taille (po) *",       "Cintura (pulg) *"),
+    mHips:     s("Hips (in) *",         "Hanches (po) *",      "Caderas (pulg) *"),
     mHeight:   s("Height (in) *",       "Hauteur (po) *",      "Altura (pulg) *"),
-    mShoulder: s("Shoulder (in)",       "Épaules (po)",        "Hombros (pulg)"),
-    mInseam:   s("Inseam (in)",         "Entrejambe (po)",     "Entrepierna (pulg)"),
+    mShoulder: s("Shoulder (in) *",     "Épaules (po) *",      "Hombros (pulg) *"),
+    mInseam:   s("Inseam (in) *",       "Entrejambe (po) *",   "Entrepierna (pulg) *"),
     errorMeasurements: s(
       "Please complete your measurements before submitting your commission request.",
       "Veuillez compléter vos mensurations avant de soumettre votre demande.",
