@@ -43,9 +43,15 @@ export function About() {
           overflow: "hidden",
         }}>
           <img
-            src="/img-man-beige.jpeg"
-            alt="HavrePlacide craftsmanship"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            src="/img-hero-blue.jpg"
+            alt="HavrePlacide blue tunique portrait"
+            style={{
+              width: "100%", height: "100%",
+              objectFit: "cover", objectPosition: "center 8%",
+              display: "block",
+              filter: "brightness(0.94) contrast(1.06) saturate(0.9) sepia(0.08)",
+            }}
+            className="about-portrait"
           />
           <div style={{
             position: "absolute", bottom: 0, left: 0, right: 0,
@@ -71,6 +77,7 @@ export function About() {
           .about-grid { grid-template-columns: 1fr; gap: 48px; }
           .about-grid > div:last-child { aspect-ratio: 4/3 !important; }
           .about-stats { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
+          .about-portrait { object-position: center 12% !important; }
         }
       `}</style>
     </section>
