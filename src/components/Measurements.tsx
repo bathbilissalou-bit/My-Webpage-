@@ -184,36 +184,6 @@ export function Measurements() {
               </div>
             )}
 
-            {/* Size guide */}
-            <div style={{ marginTop: 48, paddingTop: 40, borderTop: "1px solid var(--border)" }}>
-              <h4 style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
-                Size Guide (Chest in inches)
-              </h4>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-                <thead>
-                  <tr>
-                    {["Size", "Chest", "Waist", "Hips"].map(h => (
-                      <th key={h} style={{ padding: "10px 0", textAlign: "left", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-dim)", borderBottom: "1px solid var(--border)" }}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    ["S", "34–36", "28–30", "36–38"],
-                    ["M", "37–40", "31–33", "39–41"],
-                    ["L", "41–44", "34–36", "42–44"],
-                    ["XL", "45–48", "37–40", "45–48"],
-                  ].map(([size, ...vals]) => (
-                    <tr key={size}>
-                      <td style={{ padding: "12px 0", color: "var(--gold)", fontWeight: 500, borderBottom: "1px solid var(--border)" }}>{size}</td>
-                      {vals.map((v, i) => (
-                        <td key={i} style={{ padding: "12px 0", color: "var(--text-muted)", borderBottom: "1px solid var(--border)" }}>{v}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
