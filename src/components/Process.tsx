@@ -2,27 +2,27 @@ const steps = [
   {
     num: "01",
     title: "Choose Your Style",
-    desc: "Browse our collection of African-inspired silhouettes — tuniques, boubous, shirts, shoes, and accessories — and select what speaks to you.",
+    desc: "Browse our African-inspired silhouettes — tuniques, 3-pièces, leather sneakers, and accessories. Tell us what speaks to you, and we'll guide the rest.",
   },
   {
     num: "02",
     title: "Share Your Measurements",
-    desc: "Use our AI-powered measurement tool or follow our simple guide. Every dimension is captured so your piece fits like it was born for your body.",
+    desc: "Use our AI-powered measurement tool or submit your dimensions directly. Every measure is captured so your piece fits like it was born for your body.",
   },
   {
     num: "03",
     title: "Select Your Fabric",
-    desc: "Choose from premium materials — wax print, kente, hand-woven linen, silk blends. We source ethically from African artisan communities.",
+    desc: "Choose from super 100 or super 220 grade fabrics — fine materials selected for quality, drape, and durability, rooted in African textile tradition.",
   },
   {
     num: "04",
     title: "We Craft Your Piece",
-    desc: "Our artisans handcraft every detail with care and precision. No shortcuts — only the time it takes to do it right.",
+    desc: "Every piece is handmade by skilled artisans — stitched with care, shaped with precision, finished with the time it takes to get it right.",
   },
   {
     num: "05",
-    title: "Delivered to Your Door",
-    desc: "Your one-of-a-kind creation arrives beautifully packaged, ready to wear and made to last a lifetime.",
+    title: "Delivered to You",
+    desc: "Your commission ships directly to your door, elegantly packaged. A one-of-a-kind creation, ready to wear and built to last a lifetime.",
   },
 ];
 

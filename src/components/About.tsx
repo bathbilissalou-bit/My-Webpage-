@@ -5,13 +5,13 @@ export function About() {
 
         <div>
           <p className="section-label">Notre Histoire</p>
-          <h2 className="section-title">Born From a Vision of Timeless African Style</h2>
+          <h2 className="section-title">A Peaceful Haven, Rooted in African Excellence</h2>
           <div className="divider" />
           <p style={{ color: "var(--text-muted)", lineHeight: 1.95, marginBottom: 24, fontSize: "0.9rem" }}>
-            HavrePlacide was born from a deep reverence for African craftsmanship and a desire to bring its richness into contemporary wardrobes. Every stitch carries heritage; every silhouette tells a story.
+            HavrePlacide — a peaceful haven in fashion. Founded by Bath Bilissalou, originally from the Republic of Congo and based in New York, the brand was born from over fifteen years of immersion in fashion, the arts, and the African diaspora. Every stitch carries that heritage; every silhouette speaks to belonging.
           </p>
           <p style={{ color: "var(--text-muted)", lineHeight: 1.95, fontSize: "0.9rem" }}>
-            We design with intention — garments, shoes, and accessories made to move with you through life's most significant moments. What you wear is an extension of who you are.
+            We create handcrafted garments, shoes, and accessories that celebrate African cultural identity — made for those who believe that what they wear is an extension of who they are. Serving the African diaspora and beyond, each HavrePlacide piece is a bridge between tradition and the present moment.
           </p>
 
           <div className="about-stats" style={{ marginTop: 48, display: "flex", gap: 48, flexWrap: "wrap" }}>

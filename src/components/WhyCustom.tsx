@@ -3,19 +3,19 @@ const benefits = [
     icon: "✦",
     title: "Coupe Parfaite",
     subtitle: "Perfect Fit",
-    desc: "Every piece is made to your exact measurements. No more compromises — a garment that was built for your body, and yours alone.",
+    desc: "Every piece is measured, cut, and tailored precisely to your body. No approximations, no compromises — a garment that moves with you, built for your proportions alone.",
   },
   {
     icon: "◈",
     title: "Matières Premiums",
     subtitle: "Premium Materials",
-    desc: "We source the finest fabrics from African artisan communities — wax print, kente, hand-loomed linen, and silk blends of exceptional quality.",
+    desc: "We work exclusively with super 100 and super 220 fabrics — fine, durable materials selected for their quality, drape, and longevity. Sourced with care, crafted with intention.",
   },
   {
     icon: "◇",
     title: "Pièce Unique",
     subtitle: "One of a Kind",
-    desc: "Your creation exists nowhere else in the world. A garment as singular as your identity — made with intention, worn with pride.",
+    desc: "Each HavrePlacide piece is handcrafted one at a time. Your creation exists nowhere else in the world — as singular as your identity, and made to last a lifetime.",
   },
 ];
 
@@ -40,7 +40,7 @@ export function WhyCustom() {
             <div style={{ width: 48, height: 1, background: "var(--gold)" }} />
           </div>
           <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", maxWidth: 520, margin: "0 auto", lineHeight: 1.9 }}>
-            Ready-to-wear was never designed for you. Sur-mesure was.
+            Ready-to-wear was never designed with you in mind. Sur-mesure is the opposite — every choice, every cut, every thread made for you specifically.
           </p>
         </div>
 

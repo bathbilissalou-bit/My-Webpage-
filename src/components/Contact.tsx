@@ -91,6 +91,7 @@ export function Contact() {
               { label: "Instagram", value: "Havreplacide LLC", href: "https://instagram.com/havreplacide" },
               { label: "Facebook", value: "Havrplacide", href: "https://facebook.com/Havrplacide" },
               { label: "TikTok", value: "@haveplacide", href: "https://tiktok.com/@haveplacide" },
+              { label: "Address", value: "P.O. Box 8003, New York, NY 10150", href: null },
               { label: "Response Time", value: "Within 24 hours", href: null },
             ].map(({ label, value, href }, i, arr) => (
               <div key={label} style={{

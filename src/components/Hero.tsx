@@ -64,7 +64,7 @@ export function Hero() {
           Créations Sur-Mesure
         </p>
         <p style={{ fontSize: "0.9rem", color: "rgba(240,236,228,0.6)", lineHeight: 1.85, maxWidth: 480, margin: "0 auto 56px", fontWeight: 300 }}>
-          Handcrafted clothing, shoes &amp; accessories rooted in African heritage — made for you, and you alone.
+          Handcrafted garments, shoes &amp; accessories celebrating African cultural identity — made for those who wear their story with pride.
         </p>
 
         <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
