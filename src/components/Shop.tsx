@@ -1,14 +1,16 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { useImageViewer, ViewerImage } from "@/context/ImageViewerContext";
 
-const images = [
-  "/img-man-navy-side.jpeg",
-  "/img-man-grey-standing.jpeg",
-  "/img-tunique-taupe.png",
+const shopImages: ViewerImage[] = [
+  { src: "/img-man-navy-side.jpeg",    label: "Collection SS 2025" },
+  { src: "/img-man-grey-standing.jpeg", label: "Collection SS 2025" },
+  { src: "/img-tunique-taupe.png",     label: "Collection SS 2025" },
 ];
 
 export function Shop() {
   const { lang } = useLang();
+  const { open } = useImageViewer();
 
   return (
     <section id="shop">
@@ -26,10 +28,19 @@ export function Shop() {
         <div className="products">
           {t.shop.products.map((product, i) => (
             <div className="product-card" key={i}>
-              <div className="product-img-wrap">
-                <img src={images[i]} alt={product.name[lang]} />
+              <div
+                className="product-img-wrap"
+                onClick={() => open(shopImages, i)}
+                onContextMenu={e => e.preventDefault()}
+              >
+                <img
+                  src={shopImages[i].src}
+                  alt={product.name[lang]}
+                  draggable={false}
+                  style={{ pointerEvents: "none" }}
+                />
                 <div className="product-overlay">
-                  <button className="btn-shop">{t.shop.btnShop[lang]}</button>
+                  <button className="btn-shop" tabIndex={-1}>{t.shop.btnShop[lang]}</button>
                 </div>
               </div>
               <div className="product-info">
@@ -49,10 +60,11 @@ export function Shop() {
       <style>{`
         #shop { background: var(--bg); padding: 100px 40px; }
         .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .product-card { cursor: pointer; }
+        .product-card { cursor: pointer; user-select: none; }
         .product-img-wrap {
           position: relative; aspect-ratio: 3 / 4;
           overflow: hidden; border: 1px solid var(--border); margin-bottom: 20px;
+          cursor: zoom-in;
         }
         .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
         .product-card:hover .product-img-wrap img { transform: scale(1.04); }
@@ -66,8 +78,8 @@ export function Shop() {
           background: transparent; border: 1px solid var(--gold); color: var(--gold);
           padding: 11px 28px; font-size: 0.62rem; letter-spacing: 0.28em;
           text-transform: uppercase; cursor: pointer; font-family: inherit; transition: background 0.25s, color 0.25s;
+          pointer-events: none;
         }
-        .btn-shop:hover { background: var(--gold); color: var(--bg); }
         .product-info h3 {
           font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
           font-weight: 300; color: var(--text); margin-bottom: 10px; line-height: 1.2;

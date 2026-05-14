@@ -15,6 +15,9 @@
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body { overflow-x: hidden; }
 
+/* Global image protection */
+img { -webkit-user-drag: none; user-select: none; }
+
 body {
   background: var(--bg);
   color: var(--text);

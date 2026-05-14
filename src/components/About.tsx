@@ -1,8 +1,10 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { useImageViewer } from "@/context/ImageViewerContext";
 
 export function About() {
   const { lang } = useLang();
+  const { open } = useImageViewer();
   return (
     <section id="about" style={{ background: "var(--bg-2)", padding: "100px 40px" }}>
       <div className="section-inner about-grid">
@@ -36,20 +38,28 @@ export function About() {
           </div>
         </div>
 
-        <div style={{
-          position: "relative",
-          aspectRatio: "3/4",
-          border: "1px solid var(--border)",
-          overflow: "hidden",
-        }}>
+        <div
+          style={{
+            position: "relative",
+            aspectRatio: "3/4",
+            border: "1px solid var(--border)",
+            overflow: "hidden",
+            cursor: "zoom-in",
+            userSelect: "none",
+          }}
+          onClick={() => open([{ src: "/img-hero-blue.jpg", alt: "HavrePlacide blue tunique portrait", label: "HavrePlacide" }], 0)}
+          onContextMenu={e => e.preventDefault()}
+        >
           <img
             src="/img-hero-blue.jpg"
             alt="HavrePlacide blue tunique portrait"
+            draggable={false}
             style={{
               width: "100%", height: "100%",
               objectFit: "cover", objectPosition: "center 8%",
               display: "block",
               filter: "brightness(0.94) contrast(1.06) saturate(0.9) sepia(0.08)",
+              pointerEvents: "none",
             }}
             className="about-portrait"
           />

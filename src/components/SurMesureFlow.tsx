@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
 import type { Lang } from "@/i18n/translations";
+import { useImageViewer } from "@/context/ImageViewerContext";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -120,6 +121,7 @@ function FieldLabel({ children, required }: { children: string; required?: boole
 export function SurMesureFlow() {
   const { lang } = useLang();
   const a = t.atelier;
+  const { open: openViewer } = useImageViewer();
 
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -231,16 +233,23 @@ export function SurMesureFlow() {
             /* Image gallery */
             <div key={order.category} className="atl-preview-grid">
               {previews.map((p, i) => (
-                <div key={i} style={{ position: "relative", aspectRatio: "2/3", overflow: "hidden", border: "1px solid var(--border)" }}>
+                <div
+                  key={i}
+                  style={{ position: "relative", aspectRatio: "2/3", overflow: "hidden", border: "1px solid var(--border)", cursor: "zoom-in", userSelect: "none" }}
+                  onClick={() => openViewer(previews.map(x => ({ src: x.src, alt: x.label, label: x.label })), i)}
+                  onContextMenu={e => e.preventDefault()}
+                >
                   <img
                     src={p.src}
                     alt={p.label}
+                    draggable={false}
                     style={{
                       width: "100%", height: "100%",
                       objectFit: "cover", objectPosition: "center top",
                       display: "block",
                       filter: "brightness(0.92) contrast(1.05) saturate(0.9)",
                       transition: "transform 0.6s ease",
+                      pointerEvents: "none",
                     }}
                     className="atl-prev-img"
                   />
@@ -248,6 +257,7 @@ export function SurMesureFlow() {
                     position: "absolute", bottom: 0, left: 0, right: 0,
                     padding: "20px 16px 16px",
                     background: "linear-gradient(transparent, rgba(6,6,6,0.78))",
+                    pointerEvents: "none",
                   }}>
                     <div style={{ fontSize: "0.52rem", letterSpacing: "0.32em", textTransform: "uppercase", color: "var(--gold)" }}>
                       {p.label}
