@@ -315,6 +315,8 @@ export const t = {
     igLabel:       s("Instagram",     "Instagram",    "Instagram"),
     fbLabel:       s("Facebook",      "Facebook",     "Facebook"),
     ttLabel:       s("TikTok",        "TikTok",       "TikTok"),
+    locationLabel: s("Location",      "Localisation",  "Ubicación"),
+    locationValue: s("New York, USA", "New York, États-Unis", "Nueva York, Estados Unidos"),
     responseLabel: s("Response Time", "Délai de Réponse","Tiempo de Respuesta"),
     responseValue: s("Within 24 hours","Sous 24 heures","En menos de 24 horas"),
     namePH:        s("Your Name",     "Votre Nom",    "Su Nombre"),

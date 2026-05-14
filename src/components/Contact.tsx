@@ -52,6 +52,7 @@ export function Contact() {
     { label: t.contact.igLabel[lang],       value: "Havreplacide LLC",         href: "https://instagram.com/havreplacide" },
     { label: t.contact.fbLabel[lang],       value: "Havrplacide",              href: "https://facebook.com/Havrplacide" },
     { label: t.contact.ttLabel[lang],       value: "@haveplacide",             href: "https://tiktok.com/@haveplacide" },
+    { label: t.contact.locationLabel[lang], value: t.contact.locationValue[lang], href: null },
     { label: t.contact.responseLabel[lang], value: t.contact.responseValue[lang], href: null },
   ];
 
