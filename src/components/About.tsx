@@ -1,15 +1,17 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
 import { useImageViewer } from "@/context/ImageViewerContext";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 export function About() {
   const { lang } = useLang();
   const { open } = useImageViewer();
+  const gridRef = useStaggerReveal<HTMLDivElement>(140);
   return (
     <section id="about" style={{ background: "var(--bg-2)", padding: "100px 40px" }}>
-      <div className="section-inner about-grid">
+      <div ref={gridRef} className="section-inner about-grid">
 
-        <div>
+        <div className="reveal">
           <p className="section-label">{t.about.label[lang]}</p>
           <h2 className="section-title">{t.about.title[lang]}</h2>
           <div className="divider" />
@@ -39,6 +41,7 @@ export function About() {
         </div>
 
         <div
+          className="reveal"
           style={{
             position: "relative",
             aspectRatio: "3/4",

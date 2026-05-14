@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 export function Contact() {
   const { lang } = useLang();
+  const sectionRef = useStaggerReveal<HTMLDivElement>(140);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -64,8 +66,8 @@ export function Contact() {
         opacity: 0.4,
       }} />
 
-      <div className="section-inner">
-        <div style={{ textAlign: "center", marginBottom: 80 }}>
+      <div ref={sectionRef} className="section-inner">
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 80 }}>
           <p className="section-label">{t.contact.label[lang]}</p>
           <h2 className="section-title" style={{ fontStyle: "italic" }}>{t.contact.title[lang]}</h2>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "24px auto 32px" }}>
@@ -80,7 +82,7 @@ export function Contact() {
 
         <div className="contact-grid">
           {/* Left info panel */}
-          <div style={{ position: "relative", padding: "40px 36px", border: "1px solid var(--border)", alignSelf: "start" }}>
+          <div className="reveal" style={{ position: "relative", padding: "40px 36px", border: "1px solid var(--border)", alignSelf: "start" }}>
             <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
             <p className="serif" style={{
               fontSize: "1.15rem", fontStyle: "italic", fontWeight: 300,
@@ -114,7 +116,7 @@ export function Contact() {
           </div>
 
           {/* Right form */}
-          <div>
+          <div className="reveal">
             {status === "success" ? (
               <div style={{ position: "relative", padding: "64px 40px", border: "1px solid var(--gold)", textAlign: "center" }}>
                 <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />

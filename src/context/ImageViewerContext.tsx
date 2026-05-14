@@ -88,6 +88,7 @@ function Lightbox({
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
         userSelect: "none",
+        animation: "overlay-in 0.35s var(--ease-lux) both",
       }}
     >
       {/* Close */}
@@ -143,6 +144,7 @@ function Lightbox({
           maxWidth: "min(90vw, 900px)",
           maxHeight: "80vh",
           display: "flex", alignItems: "center", justifyContent: "center",
+          animation: "modal-in 0.45s var(--ease-lux) 0.1s both",
         }}
       >
         {/* Corner accents */}

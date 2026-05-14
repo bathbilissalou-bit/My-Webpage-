@@ -1,6 +1,7 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
 import { useImageViewer, ViewerImage } from "@/context/ImageViewerContext";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 const lookImages: ViewerImage[] = [
   { src: "/img-couple-navy.jpeg",      alt: "His & Hers, Navy Elegance",  label: "SS 2025" },
@@ -18,11 +19,12 @@ const imgStyle: React.CSSProperties = {
 export function Lookbook() {
   const { lang } = useLang();
   const { open } = useImageViewer();
+  const gridRef = useStaggerReveal<HTMLDivElement>(130);
 
   return (
     <section id="lookbook" style={{ background: "var(--bg-2)", padding: "100px 40px" }}>
       <div className="section-inner">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 56 }}>
+        <div className="reveal" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 56 }}>
           <div>
             <p className="section-label">{t.lookbook.label[lang]}</p>
             <h2 className="section-title" style={{ marginBottom: 0 }}>{t.lookbook.title[lang]}</h2>
@@ -32,10 +34,10 @@ export function Lookbook() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "auto auto", gap: 16, marginBottom: 16 }}>
+        <div ref={gridRef} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "auto auto", gap: 16, marginBottom: 16 }}>
           {/* Featured large */}
           <div
-            className="look-tile"
+            className="look-tile reveal"
             style={{ gridRow: "span 2", position: "relative", aspectRatio: "2/3", border: "1px solid var(--border)", overflow: "hidden", cursor: "zoom-in" }}
             onClick={() => open(lookImages, 0)}
             onContextMenu={e => e.preventDefault()}
@@ -51,7 +53,7 @@ export function Lookbook() {
           {lookImages.slice(1).map((look, i) => (
             <div
               key={i}
-              className="look-tile"
+              className="look-tile reveal"
               style={{ position: "relative", aspectRatio: "3/4", border: "1px solid var(--border)", overflow: "hidden", cursor: "zoom-in" }}
               onClick={() => open(lookImages, i + 1)}
               onContextMenu={e => e.preventDefault()}

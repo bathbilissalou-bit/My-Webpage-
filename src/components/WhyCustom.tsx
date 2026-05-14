@@ -1,10 +1,12 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 const icons = ["✦", "◈", "◇"];
 
 export function WhyCustom() {
   const { lang } = useLang();
+  const gridRef = useStaggerReveal<HTMLDivElement>(120);
   return (
     <section id="why" style={{ background: "var(--bg-2)", padding: "100px 40px", position: "relative" }}>
       <div aria-hidden style={{
@@ -14,7 +16,7 @@ export function WhyCustom() {
       }} />
 
       <div className="section-inner" style={{ position: "relative" }}>
-        <div style={{ textAlign: "center", marginBottom: 80 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 80 }}>
           <p className="section-label">{t.whyCustom.label[lang]}</p>
           <h2 className="section-title" style={{ fontStyle: "italic" }}>{t.whyCustom.title[lang]}</h2>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "24px auto 32px" }}>
@@ -27,9 +29,9 @@ export function WhyCustom() {
           </p>
         </div>
 
-        <div className="why-grid">
+        <div ref={gridRef} className="why-grid">
           {t.whyCustom.benefits.map((b, i) => (
-            <div key={i} className="why-card" style={{
+            <div key={i} className="why-card reveal" style={{
               position: "relative", padding: "48px 36px",
               border: "1px solid var(--border)", background: "var(--bg)",
               transition: "border-color 0.35s", textAlign: "center",

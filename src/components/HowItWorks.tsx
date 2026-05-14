@@ -1,4 +1,5 @@
 import { useLang } from "@/i18n/LangContext";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 const s = (en: string, fr: string, es: string) => ({ en, fr, es });
 
@@ -71,12 +72,13 @@ const CONTENT = {
 
 export function HowItWorks() {
   const { lang } = useLang();
+  const stepsRef = useStaggerReveal<HTMLDivElement>(120);
 
   return (
     <section id="how-it-works">
       <div className="section-inner">
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 80 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 80 }}>
           <p className="section-label">{CONTENT.label[lang]}</p>
           <h2 className="section-title" style={{ fontStyle: "italic" }}>{CONTENT.title[lang]}</h2>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "24px 0 28px" }}>
@@ -90,9 +92,9 @@ export function HowItWorks() {
         </div>
 
         {/* Steps */}
-        <div className="hiw-steps">
+        <div ref={stepsRef} className="hiw-steps">
           {CONTENT.steps.map((step, i) => (
-            <div key={step.num} className="hiw-step">
+            <div key={step.num} className="hiw-step reveal">
               {/* Connector line */}
               {i < CONTENT.steps.length - 1 && (
                 <div className="hiw-connector" />

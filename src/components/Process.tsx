@@ -1,8 +1,10 @@
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { useStaggerReveal } from "@/hooks/useScrollReveal";
 
 export function Process() {
   const { lang } = useLang();
+  const stepsRef = useStaggerReveal<HTMLDivElement>(110);
   return (
     <section id="process" style={{ background: "var(--bg)", padding: "100px 40px", position: "relative", overflow: "hidden" }}>
       <div aria-hidden style={{
@@ -12,7 +14,7 @@ export function Process() {
       }} />
 
       <div className="section-inner">
-        <div style={{ textAlign: "center", marginBottom: 80 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 80 }}>
           <p className="section-label">{t.process.label[lang]}</p>
           <h2 className="section-title" style={{ fontStyle: "italic" }}>{t.process.title[lang]}</h2>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "24px auto 0" }}>
@@ -22,9 +24,9 @@ export function Process() {
           </div>
         </div>
 
-        <div className="process-steps">
+        <div ref={stepsRef} className="process-steps">
           {t.process.steps.map((step, i) => (
-            <div key={i} className="process-step" style={{ position: "relative" }}>
+            <div key={i} className="process-step reveal" style={{ position: "relative" }}>
               {i < t.process.steps.length - 1 && (
                 <div className="step-connector" aria-hidden />
               )}

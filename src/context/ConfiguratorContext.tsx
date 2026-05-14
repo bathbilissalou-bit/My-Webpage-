@@ -595,6 +595,7 @@ function Overlay({ children, onClose, onKeyDown }: { children: ReactNode; onClos
         background: "rgba(4,4,4,0.92)",
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: "16px",
+        animation: "overlay-in 0.3s var(--ease-lux) both",
       }}
       onClick={onClose}
     >
@@ -610,6 +611,7 @@ function Overlay({ children, onClose, onKeyDown }: { children: ReactNode; onClos
           flexDirection: "column",
           overflow: "hidden",
           position: "relative",
+          animation: "modal-in 0.4s var(--ease-lux) 0.05s both",
         }}
       >
         {children}
