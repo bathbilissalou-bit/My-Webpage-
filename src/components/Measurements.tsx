@@ -9,8 +9,26 @@ interface MeasurementResult {
   comingSoon?: boolean;
 }
 
+const FIELD_GROUPS = [
+  ["chestPH",        "chest",         "Chest / Bust"],
+  ["waistPH",        "waist",         "Waist"],
+  ["hipsPH",         "hips",          "Hips"],
+  ["shoulderWidthPH","shoulderWidth",  "Shoulder Width"],
+  ["neckPH",         "neck",          "Neck"],
+  ["sleeveLengthPH", "sleeveLength",  "Sleeve Length"],
+  ["bicepPH",        "bicep",         "Bicep"],
+  ["wristPH",        "wrist",         "Wrist"],
+  ["backLengthPH",   "backLength",    "Back Length"],
+  ["inseamCalcPH",   "inseamCalc",    "Inseam"],
+  ["heightPH",       "calcHeight",    "Height"],
+] as const;
+
+type FieldKey = typeof FIELD_GROUPS[number][1];
+
 export function Measurements() {
   const { lang } = useLang();
+
+  // AI photo form
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
@@ -20,12 +38,21 @@ export function Measurements() {
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [chest, setChest] = useState("");
-  const [waist, setWaist] = useState("");
-  const [calcHeight, setCalcHeight] = useState("");
+  // Calculator fields
+  const [fields, setFields] = useState<Record<FieldKey, string>>({
+    chest: "", waist: "", hips: "", shoulderWidth: "", neck: "",
+    sleeveLength: "", bicep: "", wrist: "", backLength: "", inseamCalc: "", calcHeight: "",
+  });
   const [fit, setFit] = useState("");
+  const [calcName, setCalcName] = useState("");
+  const [calcEmail, setCalcEmail] = useState("");
   const [calcResult, setCalcResult] = useState<{ size: string; fitLabel: string } | null>(null);
   const [calcError, setCalcError] = useState("");
+  const [calcSuccess, setCalcSuccess] = useState("");
+  const [calcLoading, setCalcLoading] = useState(false);
+
+  const setField = (key: FieldKey, val: string) =>
+    setFields(prev => ({ ...prev, [key]: val }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,22 +78,67 @@ export function Measurements() {
     }
   };
 
-  const calculateSize = () => {
-    if (!chest || !waist || !fit) { setCalcError(t.measurements.calcError[lang]); setCalcResult(null); return; }
+  const handleCalculate = async () => {
+    if (!fields.chest || !fields.waist || !fields.calcHeight) {
+      setCalcError(t.measurements.calcError[lang]);
+      setCalcResult(null);
+      return;
+    }
     setCalcError("");
-    const c = parseFloat(chest);
+    setCalcSuccess("");
+
+    const c = parseFloat(fields.chest);
     const size = c <= 36 ? "Small" : c <= 40 ? "Medium" : c <= 44 ? "Large" : "X-Large";
-    const fitLabel = fit === "slim" ? t.measurements.fitSlim[lang] : fit === "regular" ? t.measurements.fitRegular[lang] : t.measurements.fitLoose[lang];
+    const fitLabel = fit === "slim"
+      ? t.measurements.fitSlim[lang]
+      : fit === "loose"
+        ? t.measurements.fitLoose[lang]
+        : t.measurements.fitRegular[lang];
     setCalcResult({ size, fitLabel });
+
+    const measureLines = [
+      `Chest / Bust: ${fields.chest}"`,
+      `Waist: ${fields.waist}"`,
+      fields.hips        ? `Hips: ${fields.hips}"` : "",
+      fields.shoulderWidth ? `Shoulder Width: ${fields.shoulderWidth}"` : "",
+      fields.neck        ? `Neck: ${fields.neck}"` : "",
+      fields.sleeveLength ? `Sleeve Length: ${fields.sleeveLength}"` : "",
+      fields.bicep       ? `Bicep: ${fields.bicep}"` : "",
+      fields.wrist       ? `Wrist: ${fields.wrist}"` : "",
+      fields.backLength  ? `Back Length: ${fields.backLength}"` : "",
+      fields.inseamCalc  ? `Inseam: ${fields.inseamCalc}"` : "",
+      `Height: ${fields.calcHeight}"`,
+      fit ? `Fit Style: ${fitLabel}` : "",
+      `Recommended Size: ${size}`,
+    ].filter(Boolean).join("\n");
+
+    setCalcLoading(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: calcName || "Anonymous",
+          email: calcEmail || "noreply@havreplacide.com",
+          subject: "measurements",
+          message: measureLines,
+        }),
+      });
+      setCalcSuccess(t.measurements.calcSuccess[lang]);
+    } catch {
+      // silently fail — size result still shown
+    } finally {
+      setCalcLoading(false);
+    }
   };
 
   const measureFields = [
-    [t.measurements.chest[lang], result?.chest],
-    [t.measurements.waist[lang], result?.waist],
-    [t.measurements.hips[lang], result?.hips],
-    [t.measurements.inseam[lang], result?.inseam],
-    [t.measurements.shoulder[lang], result?.shoulder],
-    [t.measurements.height[lang], result?.height],
+    [t.measurements.chest[lang],   result?.chest],
+    [t.measurements.waist[lang],   result?.waist],
+    [t.measurements.hips[lang],    result?.hips],
+    [t.measurements.inseam[lang],  result?.inseam],
+    [t.measurements.shoulder[lang],result?.shoulder],
+    [t.measurements.height[lang],  result?.height],
   ] as [string, string | undefined][];
 
   return (
@@ -92,7 +164,7 @@ export function Measurements() {
           ))}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+        <div className="measurements-grid">
           {/* AI Photo Form */}
           <div>
             <h3 style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
@@ -175,24 +247,68 @@ export function Measurements() {
             <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", marginBottom: 28, lineHeight: 1.7 }}>
               {t.measurements.calcSub[lang]}
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <input className="field" type="number" placeholder={t.measurements.chestPH[lang]} value={chest} onChange={e => setChest(e.target.value)} />
-              <input className="field" type="number" placeholder={t.measurements.waistPH[lang]} value={waist} onChange={e => setWaist(e.target.value)} />
-              <input className="field" type="number" placeholder={t.measurements.heightPH[lang]} value={calcHeight} onChange={e => setCalcHeight(e.target.value)} />
+
+            {/* Measurement fields grid */}
+            <div className="calc-fields-grid">
+              {FIELD_GROUPS.map(([phKey, stateKey]) => (
+                <input
+                  key={stateKey}
+                  className="field"
+                  type="number"
+                  step="0.5"
+                  min="0"
+                  placeholder={(t.measurements as Record<string, { en: string; fr: string; es: string }>)[phKey][lang]}
+                  value={fields[stateKey]}
+                  onChange={e => setField(stateKey, e.target.value)}
+                />
+              ))}
+            </div>
+
+            {/* Fit + Name + Email */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 12 }}>
               <select className="field" value={fit} onChange={e => setFit(e.target.value)}>
                 <option value="">{t.measurements.fitDefault[lang]}</option>
                 <option value="slim">{t.measurements.fitSlim[lang]}</option>
                 <option value="regular">{t.measurements.fitRegular[lang]}</option>
                 <option value="loose">{t.measurements.fitLoose[lang]}</option>
               </select>
-              <button onClick={calculateSize} className="btn-primary">{t.measurements.calcBtn[lang]}</button>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <input className="field" type="text" placeholder={t.measurements.calcNamePH[lang]} value={calcName} onChange={e => setCalcName(e.target.value)} />
+                <input className="field" type="email" placeholder={t.measurements.calcEmailPH[lang]} value={calcEmail} onChange={e => setCalcEmail(e.target.value)} />
+              </div>
             </div>
-            {calcError && <p style={{ marginTop: 16, color: "#e88", fontSize: "0.82rem" }}>{calcError}</p>}
+
+            <button
+              onClick={handleCalculate}
+              disabled={calcLoading}
+              className="btn-primary"
+              style={{ marginTop: 20, width: "100%", opacity: calcLoading ? 0.6 : 1, cursor: calcLoading ? "not-allowed" : "pointer" }}
+            >
+              {t.measurements.calcBtn[lang]}
+            </button>
+
+            {calcError && (
+              <p style={{ marginTop: 14, color: "#e88", fontSize: "0.82rem" }}>{calcError}</p>
+            )}
+
             {calcResult && (
               <div style={{ marginTop: 24, padding: "24px 28px", border: "1px solid var(--gold)", background: "var(--bg-2)" }}>
                 <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 12 }}>{t.measurements.calcResultTitle[lang]}</div>
                 <div className="serif" style={{ fontSize: "2.5rem", color: "var(--gold)", fontWeight: 300, marginBottom: 8 }}>{calcResult.size}</div>
-                <div style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>{calcResult.fitLabel}</div>
+                {fit && <div style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>{calcResult.fitLabel}</div>}
+              </div>
+            )}
+
+            {calcSuccess && (
+              <div style={{
+                marginTop: 16, padding: "16px 20px",
+                border: "1px solid var(--gold)", background: "var(--bg-2)",
+                display: "flex", alignItems: "center", gap: 12,
+              }}>
+                <div style={{ width: 6, height: 6, background: "var(--gold)", transform: "rotate(45deg)", flexShrink: 0 }} />
+                <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", lineHeight: 1.7, margin: 0 }}>
+                  {calcSuccess}
+                </p>
               </div>
             )}
           </div>
@@ -200,16 +316,25 @@ export function Measurements() {
       </div>
 
       <style>{`
+        .measurements-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: start;
+        }
+        .calc-fields-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
         @media(max-width:768px){
           #measurements { padding: 80px 24px !important; }
           #measurements .section-inner > div:nth-child(2) {
             grid-template-columns: 1fr !important; gap: 2px !important;
           }
           #measurements .section-inner > div:nth-child(2) > div { padding: 28px 24px !important; }
-          #measurements .section-inner > div:last-child { grid-template-columns: 1fr !important; gap: 48px !important; }
-          #measurements .section-inner > div:last-child > div > div[style*="grid-template-columns"] {
-            grid-template-columns: 1fr 1fr !important;
-          }
+          .measurements-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .calc-fields-grid { grid-template-columns: 1fr 1fr !important; }
         }
       `}</style>
     </section>

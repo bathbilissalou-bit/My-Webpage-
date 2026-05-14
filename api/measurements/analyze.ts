@@ -67,8 +67,13 @@ Respond ONLY with valid JSON, no preamble or markdown:
   "chest": "e.g. 38\\"",
   "waist": "e.g. 32\\"",
   "hips": "e.g. 40\\"",
-  "inseam": "e.g. 30\\"",
   "shoulder": "e.g. 17\\"",
+  "neck": "e.g. 15\\"",
+  "sleeveLength": "e.g. 25\\"",
+  "bicep": "e.g. 13\\"",
+  "wrist": "e.g. 6.5\\"",
+  "backLength": "e.g. 18\\"",
+  "inseam": "e.g. 30\\"",
   "height": "e.g. 70\\"",
   "recommendedSize": "S, M, L, or XL",
   "notes": "professional fit notes and caveats",
@@ -85,15 +90,20 @@ Omit fields you cannot estimate. Be honest about confidence.`,
 
     const timestamp = new Date().toISOString();
     const measurementSummary = [
-      result.chest ? `Chest: ${result.chest}` : "",
-      result.waist ? `Waist: ${result.waist}` : "",
-      result.hips ? `Hips: ${result.hips}` : "",
-      result.height ? `Height: ${result.height}` : "",
-      result.inseam ? `Inseam: ${result.inseam}` : "",
-      result.shoulder ? `Shoulder: ${result.shoulder}` : "",
+      result.chest        ? `Chest: ${result.chest}`               : "",
+      result.waist        ? `Waist: ${result.waist}`               : "",
+      result.hips         ? `Hips: ${result.hips}`                 : "",
+      result.shoulder     ? `Shoulder: ${result.shoulder}`         : "",
+      result.neck         ? `Neck: ${result.neck}`                 : "",
+      result.sleeveLength ? `Sleeve: ${result.sleeveLength}`       : "",
+      result.bicep        ? `Bicep: ${result.bicep}`               : "",
+      result.wrist        ? `Wrist: ${result.wrist}`               : "",
+      result.backLength   ? `Back Length: ${result.backLength}`    : "",
+      result.inseam       ? `Inseam: ${result.inseam}`             : "",
+      result.height       ? `Height: ${result.height}`             : "",
       `Size: ${result.recommendedSize}`,
       `Confidence: ${result.confidence}`,
-      result.notes ? `Notes: ${result.notes}` : "",
+      result.notes        ? `Notes: ${result.notes}`               : "",
     ].filter(Boolean).join(" | ");
 
     // ── Email via Resend ─────────────────────────────────────────────────────
@@ -112,12 +122,17 @@ Omit fields you cannot estimate. Be honest about confidence.`,
               <tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;width:140px;">NAME</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${name || "Anonymous"}</td></tr>
               <tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">EMAIL</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${email || "Not provided"}</td></tr>
               <tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">SIZE</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:1.2rem;color:#c9a96e;">${result.recommendedSize}</td></tr>
-              ${result.chest ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">CHEST</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.chest}</td></tr>` : ""}
-              ${result.waist ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">WAIST</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.waist}</td></tr>` : ""}
-              ${result.hips ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">HIPS</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.hips}</td></tr>` : ""}
-              ${result.height ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">HEIGHT</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.height}</td></tr>` : ""}
-              ${result.shoulder ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">SHOULDER</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.shoulder}</td></tr>` : ""}
-              ${result.inseam ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">INSEAM</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.inseam}</td></tr>` : ""}
+              ${result.chest        ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">CHEST / BUST</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.chest}</td></tr>` : ""}
+              ${result.waist       ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">WAIST</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.waist}</td></tr>` : ""}
+              ${result.hips        ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">HIPS</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.hips}</td></tr>` : ""}
+              ${result.shoulder    ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">SHOULDER WIDTH</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.shoulder}</td></tr>` : ""}
+              ${result.neck        ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">NECK</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.neck}</td></tr>` : ""}
+              ${result.sleeveLength ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">SLEEVE LENGTH</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.sleeveLength}</td></tr>` : ""}
+              ${result.bicep       ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">BICEP</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.bicep}</td></tr>` : ""}
+              ${result.wrist       ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">WRIST</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.wrist}</td></tr>` : ""}
+              ${result.backLength  ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">BACK LENGTH</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.backLength}</td></tr>` : ""}
+              ${result.inseam      ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">INSEAM</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.inseam}</td></tr>` : ""}
+              ${result.height      ? `<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">HEIGHT</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.height}</td></tr>` : ""}
               <tr><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;">CONFIDENCE</td><td style="padding:10px 0;border-bottom:1px solid #2a2a2a;font-size:0.9rem;">${result.confidence}</td></tr>
             </table>
             ${result.notes ? `<div style="margin-top:28px;"><p style="color:#7a7570;font-size:0.8rem;letter-spacing:0.1em;margin-bottom:10px;">FIT NOTES</p><div style="background:#111;border-left:2px solid #c9a96e;padding:16px 20px;font-size:0.9rem;line-height:1.8;">${result.notes}</div></div>` : ""}
