@@ -65,6 +65,7 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  const [commissionRef, setCommissionRef] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const set = <K extends keyof Selection>(k: K, v: Selection[K]) =>
@@ -128,6 +129,8 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
         }),
       });
       if (!res.ok) throw new Error();
+      const data = await res.json();
+      setCommissionRef(data.commissionRef ?? null);
       setSubmitted(true);
     } catch {
       setSubmitError(true);
@@ -137,19 +140,83 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
   };
 
   if (submitted) {
+    const nextSteps = lang === "fr"
+      ? ["Révision de vos mesures et choix de design", "Confirmation de votre rendez-vous", "Envoi d'un devis et d'une facture d'acompte"]
+      : lang === "es"
+      ? ["Revisión de sus medidas y opciones de diseño", "Confirmación de su cita", "Envío de un presupuesto y factura de depósito"]
+      : ["Review of your measurements and design choices", "Confirmation of your appointment", "A quote and deposit invoice sent to your email"];
+
+    const paymentNote = lang === "fr"
+      ? "Votre demande de commission a bien été reçue. Après examen de vos mesures, choix de design et demande de rendez-vous, HavrePlacide vous contactera avec les prochaines étapes et les instructions de paiement/acompte."
+      : lang === "es"
+      ? "Su solicitud de comisión ha sido recibida. Después de revisar sus medidas, opciones de diseño y solicitud de cita, HavrePlacide se pondrá en contacto con los próximos pasos e instrucciones de pago/depósito."
+      : "Your commission request has been received. After reviewing your measurements, design choices, and appointment request, HavrePlacide will contact you with the next steps and deposit / payment instructions.";
+
     return (
       <Overlay onClose={onClose} onKeyDown={handleKey}>
-        <div style={{ maxWidth: 480, margin: "auto", textAlign: "center", padding: "60px 40px" }}>
-          <div style={{ width: 48, height: 48, border: "1px solid var(--gold)", transform: "rotate(45deg)", margin: "0 auto 32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ transform: "rotate(-45deg)", color: "var(--gold)", fontSize: "1.4rem" }}>✓</div>
+        <div style={{ maxWidth: 520, margin: "auto", padding: "56px 40px", position: "relative" }}>
+          {/* Corner accents */}
+          <div style={{ position: "absolute", top: 24, left: 24, width: 20, height: 20, borderTop: "1px solid var(--gold)", borderLeft: "1px solid var(--gold)" }} />
+          <div style={{ position: "absolute", top: 24, right: 24, width: 20, height: 20, borderTop: "1px solid var(--gold)", borderRight: "1px solid var(--gold)" }} />
+          <div style={{ position: "absolute", bottom: 24, left: 24, width: 20, height: 20, borderBottom: "1px solid var(--gold)", borderLeft: "1px solid var(--gold)" }} />
+          <div style={{ position: "absolute", bottom: 24, right: 24, width: 20, height: 20, borderBottom: "1px solid var(--gold)", borderRight: "1px solid var(--gold)" }} />
+
+          {/* Check */}
+          <div style={{ width: 52, height: 52, border: "1px solid var(--gold)", transform: "rotate(45deg)", margin: "0 auto 32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ transform: "rotate(-45deg)", color: "var(--gold)", fontSize: "1.5rem" }}>✓</div>
           </div>
-          <p className="serif" style={{ fontSize: "1.8rem", fontWeight: 300, fontStyle: "italic", color: "var(--gold)", marginBottom: 16 }}>
+
+          {/* Title */}
+          <p className="serif" style={{ fontSize: "1.9rem", fontWeight: 300, fontStyle: "italic", color: "var(--gold)", marginBottom: 8, textAlign: "center" }}>
             {cfg.successTitle[lang]}
           </p>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.8, marginBottom: 32 }}>
-            {cfg.successMsg[lang]}
-          </p>
-          <button onClick={onClose} className="btn-primary">{cfg.closeBtn[lang]}</button>
+
+          {/* Reference number */}
+          {commissionRef && (
+            <p style={{ textAlign: "center", fontSize: "0.62rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-dim)", marginBottom: 32 }}>
+              {lang === "fr" ? "Référence" : lang === "es" ? "Referencia" : "Reference"}&nbsp;&nbsp;
+              <span style={{ color: "var(--gold)" }}>{commissionRef}</span>
+            </p>
+          )}
+
+          {/* Divider */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "center", marginBottom: 28 }}>
+            <div style={{ width: 32, height: 1, background: "var(--gold)" }} />
+            <div style={{ width: 5, height: 5, border: "1px solid var(--gold)", transform: "rotate(45deg)" }} />
+            <div style={{ width: 32, height: 1, background: "var(--gold)" }} />
+          </div>
+
+          {/* Payment-ready notice */}
+          <div style={{ border: "1px solid var(--border)", borderLeft: "2px solid var(--gold)", padding: "16px 20px", marginBottom: 28, background: "var(--bg-2)" }}>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", lineHeight: 1.85, margin: 0 }}>
+              {paymentNote}
+            </p>
+          </div>
+
+          {/* What happens next */}
+          <div style={{ marginBottom: 36 }}>
+            <p style={{ fontSize: "0.58rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-dim)", marginBottom: 16 }}>
+              {lang === "fr" ? "Prochaines Étapes" : lang === "es" ? "Próximos Pasos" : "What Happens Next"}
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {nextSteps.map((step, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                  <div style={{
+                    width: 24, height: 24, border: "1px solid var(--gold)", flexShrink: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontFamily: "'Cormorant Garamond', serif", fontSize: "0.8rem", color: "var(--gold)", fontWeight: 300,
+                  }}>
+                    {i + 1}
+                  </div>
+                  <span style={{ color: "var(--text-muted)", fontSize: "0.82rem", lineHeight: 1.6, paddingTop: 3 }}>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button onClick={onClose} className="btn-primary" style={{ width: "100%" }}>
+            {cfg.closeBtn[lang]}
+          </button>
         </div>
       </Overlay>
     );

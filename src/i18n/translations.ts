@@ -439,11 +439,11 @@ export const t = {
     ),
     submitBtn:        s("Request This Piece",        "Demander cette Pièce",            "Solicitar esta Pieza"),
     submittingBtn:    s("Submitting...",             "Envoi en cours...",               "Enviando..."),
-    successTitle:     s("Commission Request Received","Demande de Commission Reçue",   "Solicitud de Comisión Recibida"),
+    successTitle:     s("Commission Received", "Commission Reçue", "Comisión Recibida"),
     successMsg:       s(
-      "Thank you. We have received your commission request and will be in touch within 24 hours to discuss your piece and schedule your fitting.",
-      "Merci. Nous avons bien reçu votre demande et vous contacterons sous 24 heures pour discuter de votre pièce et planifier votre fitting.",
-      "Gracias. Hemos recibido su solicitud y nos pondremos en contacto en menos de 24 horas para hablar de su pieza y programar su fitting."
+      "Thank you. Your commission request has been received.",
+      "Merci. Votre demande de commission a bien été reçue.",
+      "Gracias. Su solicitud de comisión ha sido recibida."
     ),
     closeBtn:         s("Close",                    "Fermer",                          "Cerrar"),
   },
