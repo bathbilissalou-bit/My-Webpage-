@@ -62,6 +62,23 @@ const CATALOG: Record<string, CatalogItem[]> = {
 
 const COLOR_HEX = ["#1a2a4a", "#3a3a3a", "#f5f0e8", "#7a8f7a", "#c9a96e", "#0d0d0d"];
 
+// ── Category preview images ────────────────────────────────────────────────
+
+const CAT_PREVIEWS: Record<string, { src: string; label: string }[]> = {
+  tunique: [
+    { src: "/img-man-navy-side.jpeg",    label: "Navy" },
+    { src: "/img-hero-blue.jpg",         label: "Sky Blue" },
+    { src: "/img-tunique-taupe.png",     label: "Grège" },
+  ],
+  ensemble: [
+    { src: "/img-man-navy-seated.jpeg",  label: "Classic" },
+    { src: "/img-man-grey-outdoor.jpeg", label: "Contemporary" },
+    { src: "/img-man-beige.jpeg",        label: "Taupe" },
+  ],
+  sneakers:    [],
+  accessories: [],
+};
+
 // ── Small UI primitives ────────────────────────────────────────────────────
 
 function Pill({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
@@ -164,30 +181,110 @@ export function SurMesureFlow() {
 
   // ── Step renderers ─────────────────────────────────────────────────────
 
-  const renderCategory = () => (
-    <div>
-      <h3 className="atl-step-title">{a.catTitle[lang]}</h3>
-      <div className="atl-cat-grid">
-        {CAT_KEYS.map((key, i) => (
-          <button key={key}
-            className="atl-cat-card"
-            onClick={() => { set("category", key); set("productIdx", -1); }}
-            style={{ borderColor: order.category === key ? "var(--gold)" : "var(--border)", background: order.category === key ? "rgba(201,169,110,0.07)" : "var(--bg-2)" }}>
-            {order.category === key && (
-              <div style={{ position: "absolute", top: 14, right: 14, width: 8, height: 8, borderRadius: "50%", background: "var(--gold)" }} />
-            )}
-            <div style={{ fontSize: "1.6rem", color: "var(--gold)", marginBottom: 18 }}>{CAT_ICONS[i]}</div>
-            <div className="serif" style={{ fontSize: "1.2rem", fontWeight: 300, fontStyle: "italic", color: "var(--text)", marginBottom: 10 }}>
-              {a.catLabels[i][lang]}
+  const renderCategory = () => {
+    const previews = order.category ? (CAT_PREVIEWS[order.category] ?? []) : [];
+    const catIdx   = CAT_KEYS.indexOf(order.category);
+
+    return (
+      <div>
+        <h3 className="atl-step-title">{a.catTitle[lang]}</h3>
+
+        {/* Category selector cards */}
+        <div className="atl-cat-grid">
+          {CAT_KEYS.map((key, i) => (
+            <button key={key}
+              className="atl-cat-card"
+              onClick={() => { set("category", key); set("productIdx", -1); }}
+              style={{ borderColor: order.category === key ? "var(--gold)" : "var(--border)", background: order.category === key ? "rgba(201,169,110,0.07)" : "var(--bg-2)" }}>
+              {order.category === key && (
+                <div style={{ position: "absolute", top: 14, right: 14, width: 8, height: 8, borderRadius: "50%", background: "var(--gold)" }} />
+              )}
+              <div style={{ fontSize: "1.6rem", color: "var(--gold)", marginBottom: 18 }}>{CAT_ICONS[i]}</div>
+              <div className="serif" style={{ fontSize: "1.2rem", fontWeight: 300, fontStyle: "italic", color: "var(--text)", marginBottom: 10 }}>
+                {a.catLabels[i][lang]}
+              </div>
+              <p style={{ fontSize: "0.76rem", color: "var(--text-muted)", lineHeight: 1.7, margin: 0 }}>
+                {a.catDescs[i][lang]}
+              </p>
+            </button>
+          ))}
+        </div>
+
+        {/* Visual preview panel — fades in below cards on selection */}
+        <div style={{
+          maxHeight: order.category ? "600px" : "0px",
+          opacity: order.category ? 1 : 0,
+          overflow: "hidden",
+          transition: "opacity 0.4s ease, max-height 0.5s ease",
+          marginTop: order.category ? 48 : 0,
+        }}>
+          {/* Divider with category label */}
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
+            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+            <span style={{ fontSize: "0.54rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--gold)", whiteSpace: "nowrap" }}>
+              {catIdx >= 0 ? a.catLabels[catIdx][lang] : ""}
+            </span>
+            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+          </div>
+
+          {previews.length > 0 ? (
+            /* Image gallery */
+            <div key={order.category} className="atl-preview-grid">
+              {previews.map((p, i) => (
+                <div key={i} style={{ position: "relative", aspectRatio: "2/3", overflow: "hidden", border: "1px solid var(--border)" }}>
+                  <img
+                    src={p.src}
+                    alt={p.label}
+                    style={{
+                      width: "100%", height: "100%",
+                      objectFit: "cover", objectPosition: "center top",
+                      display: "block",
+                      filter: "brightness(0.92) contrast(1.05) saturate(0.9)",
+                      transition: "transform 0.6s ease",
+                    }}
+                    className="atl-prev-img"
+                  />
+                  <div style={{
+                    position: "absolute", bottom: 0, left: 0, right: 0,
+                    padding: "20px 16px 16px",
+                    background: "linear-gradient(transparent, rgba(6,6,6,0.78))",
+                  }}>
+                    <div style={{ fontSize: "0.52rem", letterSpacing: "0.32em", textTransform: "uppercase", color: "var(--gold)" }}>
+                      {p.label}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <p style={{ fontSize: "0.76rem", color: "var(--text-muted)", lineHeight: 1.7, margin: 0 }}>
-              {a.catDescs[i][lang]}
-            </p>
-          </button>
-        ))}
+          ) : (
+            /* Placeholder for categories without images yet */
+            <div style={{
+              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+              padding: "56px 40px", border: "1px solid var(--border)", background: "var(--bg-2)",
+              textAlign: "center", gap: 20,
+            }}>
+              <div style={{ fontSize: "3rem", color: "var(--gold)", lineHeight: 1 }}>
+                {catIdx >= 0 ? CAT_ICONS[catIdx] : "◈"}
+              </div>
+              <div className="serif" style={{ fontSize: "1.4rem", fontWeight: 300, fontStyle: "italic", color: "var(--text)" }}>
+                {catIdx >= 0 ? a.catLabels[catIdx][lang] : ""}
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", lineHeight: 1.85, maxWidth: 340, margin: 0 }}>
+                {catIdx >= 0 ? a.catDescs[catIdx][lang] : ""}
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 4 }}>
+                <div style={{ width: 24, height: 1, background: "var(--gold)", opacity: 0.5 }} />
+                <span style={{ fontSize: "0.52rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-dim)" }}>
+                  Photography coming soon
+                </span>
+                <div style={{ width: 24, height: 1, background: "var(--gold)", opacity: 0.5 }} />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderStyle = () => {
     const items = order.category ? CATALOG[order.category] ?? [] : [];
@@ -608,13 +705,25 @@ export function SurMesureFlow() {
         .atl-meas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         /* Review inputs */
         .atl-review-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        /* Category preview grid */
+        .atl-preview-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+        .atl-preview-grid:hover .atl-prev-img { filter: brightness(0.78) contrast(1.05) saturate(0.9) !important; }
+        .atl-preview-grid div:hover .atl-prev-img {
+          filter: brightness(0.92) contrast(1.05) saturate(0.9) !important;
+          transform: scale(1.04);
+        }
         /* Steppers */
         .atl-stepper-desk { display: flex; align-items: flex-start; justify-content: center; }
         .atl-stepper-mob  { display: none; text-align: center; }
 
         @media (max-width: 900px) {
-          .atl-cat-grid   { grid-template-columns: 1fr 1fr !important; }
-          .atl-style-grid { grid-template-columns: 1fr 1fr !important; }
+          .atl-cat-grid     { grid-template-columns: 1fr 1fr !important; }
+          .atl-style-grid   { grid-template-columns: 1fr 1fr !important; }
+          .atl-preview-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
         }
         @media (max-width: 768px) {
           #atelier { padding: 80px 20px !important; }
@@ -625,9 +734,10 @@ export function SurMesureFlow() {
           .atl-review-inputs{ grid-template-columns: 1fr !important; }
         }
         @media (max-width: 480px) {
-          .atl-cat-grid   { grid-template-columns: 1fr !important; }
-          .atl-style-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
-          .atl-meas-grid  { grid-template-columns: 1fr 1fr !important; }
+          .atl-cat-grid     { grid-template-columns: 1fr !important; }
+          .atl-style-grid   { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+          .atl-meas-grid    { grid-template-columns: 1fr 1fr !important; }
+          .atl-preview-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
         }
       `}</style>
     </section>
