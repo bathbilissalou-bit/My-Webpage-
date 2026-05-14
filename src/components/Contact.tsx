@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useLang } from "@/i18n/LangContext";
+import { t } from "@/i18n/translations";
 
 export function Contact() {
+  const { lang } = useLang();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -27,8 +30,7 @@ export function Contact() {
 
   const Corner = ({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) => (
     <span style={{
-      position: "absolute",
-      width: 14, height: 14,
+      position: "absolute", width: 14, height: 14,
       top: pos.startsWith("t") ? -1 : "auto",
       bottom: pos.startsWith("b") ? -1 : "auto",
       left: pos.endsWith("l") ? -1 : "auto",
@@ -44,10 +46,18 @@ export function Contact() {
     <div style={{ width: 6, height: 6, border: "1px solid var(--gold)", transform: "rotate(45deg)", flexShrink: 0 }} />
   );
 
+  const infoItems = [
+    { label: t.contact.emailLabel[lang],    value: "havreplacide@gmail.com",   href: "mailto:havreplacide@gmail.com" },
+    { label: t.contact.phoneLabel[lang],    value: "+1 (646) 389-7810",        href: "tel:+16463897810" },
+    { label: t.contact.igLabel[lang],       value: "Havreplacide LLC",         href: "https://instagram.com/havreplacide" },
+    { label: t.contact.fbLabel[lang],       value: "Havrplacide",              href: "https://facebook.com/Havrplacide" },
+    { label: t.contact.ttLabel[lang],       value: "@haveplacide",             href: "https://tiktok.com/@haveplacide" },
+    { label: t.contact.addressLabel[lang],  value: "P.O. Box 8003, New York, NY 10150", href: null },
+    { label: t.contact.responseLabel[lang], value: t.contact.responseValue[lang], href: null },
+  ];
+
   return (
     <section id="contact" style={{ background: "var(--bg)", padding: "100px 40px", position: "relative" }}>
-
-      {/* Subtle Afro-geometric background accent */}
       <div aria-hidden style={{
         position: "absolute", top: 0, left: 0, right: 0, height: 3,
         background: "repeating-linear-gradient(90deg, var(--gold) 0px, var(--gold) 8px, transparent 8px, transparent 16px, var(--border) 16px, var(--border) 20px, transparent 20px, transparent 28px)",
@@ -55,45 +65,31 @@ export function Contact() {
       }} />
 
       <div className="section-inner">
-
-        {/* Section header */}
         <div style={{ textAlign: "center", marginBottom: 80 }}>
-          <p className="section-label">Get In Touch</p>
-          <h2 className="section-title" style={{ fontStyle: "italic" }}>Contact Us</h2>
+          <p className="section-label">{t.contact.label[lang]}</p>
+          <h2 className="section-title" style={{ fontStyle: "italic" }}>{t.contact.title[lang]}</h2>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, margin: "24px auto 32px" }}>
             <div style={{ width: 48, height: 1, background: "var(--gold)" }} />
             <Diamond />
             <div style={{ width: 48, height: 1, background: "var(--gold)" }} />
           </div>
           <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.9, maxWidth: 500, margin: "0 auto" }}>
-            Ready to order a custom piece, or have questions about our collection?<br />We'd love to hear from you.
+            {t.contact.sub[lang]}
           </p>
         </div>
 
-        {/* Two-column grid */}
         <div className="contact-grid">
-
-          {/* Left: info panel */}
+          {/* Left info panel */}
           <div style={{ position: "relative", padding: "40px 36px", border: "1px solid var(--border)", alignSelf: "start" }}>
             <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
-
             <p className="serif" style={{
               fontSize: "1.15rem", fontStyle: "italic", fontWeight: 300,
               color: "var(--text-muted)", lineHeight: 1.85, marginBottom: 40,
               borderLeft: "2px solid var(--gold)", paddingLeft: 20,
             }}>
-              "Every garment is a conversation between tradition and the present moment."
+              {t.contact.quote[lang]}
             </p>
-
-            {[
-              { label: "Email", value: "havreplacide@gmail.com", href: "mailto:havreplacide@gmail.com" },
-              { label: "Phone", value: "+1 (646) 389-7810", href: "tel:+16463897810" },
-              { label: "Instagram", value: "Havreplacide LLC", href: "https://instagram.com/havreplacide" },
-              { label: "Facebook", value: "Havrplacide", href: "https://facebook.com/Havrplacide" },
-              { label: "TikTok", value: "@haveplacide", href: "https://tiktok.com/@haveplacide" },
-              { label: "Address", value: "P.O. Box 8003, New York, NY 10150", href: null },
-              { label: "Response Time", value: "Within 24 hours", href: null },
-            ].map(({ label, value, href }, i, arr) => (
+            {infoItems.map(({ label, value, href }, i, arr) => (
               <div key={label} style={{
                 marginBottom: i < arr.length - 1 ? 28 : 0,
                 paddingBottom: i < arr.length - 1 ? 28 : 0,
@@ -117,40 +113,42 @@ export function Contact() {
             ))}
           </div>
 
-          {/* Right: form */}
+          {/* Right form */}
           <div>
             {status === "success" ? (
               <div style={{ position: "relative", padding: "64px 40px", border: "1px solid var(--gold)", textAlign: "center" }}>
                 <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
                 <div style={{ width: 10, height: 10, border: "1px solid var(--gold)", transform: "rotate(45deg)", margin: "0 auto 28px" }} />
-                <div className="serif" style={{ fontSize: "2.8rem", color: "var(--gold)", fontWeight: 300, fontStyle: "italic", marginBottom: 20 }}>Merci</div>
+                <div className="serif" style={{ fontSize: "2.8rem", color: "var(--gold)", fontWeight: 300, fontStyle: "italic", marginBottom: 20 }}>
+                  {t.contact.successTitle[lang]}
+                </div>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.9 }}>
-                  Your message has been received.<br />We'll be in touch within 24 hours.
+                  {t.contact.successMsg[lang]}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div className="name-email-row">
-                  <input className="field" type="text" name="name" placeholder="Your Name" value={form.name} onChange={handleChange} required />
-                  <input className="field" type="email" name="email" placeholder="Your Email" value={form.email} onChange={handleChange} required />
+                  <input className="field" type="text" name="name" placeholder={t.contact.namePH[lang]} value={form.name} onChange={handleChange} required />
+                  <input className="field" type="email" name="email" placeholder={t.contact.emailPH[lang]} value={form.email} onChange={handleChange} required />
                 </div>
                 <select className="field" name="subject" value={form.subject} onChange={handleChange} required>
-                  <option value="">Select Subject</option>
-                  <option value="custom">Custom Order</option>
-                  <option value="sizing">Sizing Question</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="collaboration">Collaboration</option>
+                  <option value="">{t.contact.subjDefault[lang]}</option>
+                  <option value="custom">{t.contact.subjCustom[lang]}</option>
+                  <option value="sizing">{t.contact.subjSizing[lang]}</option>
+                  <option value="general">{t.contact.subjGeneral[lang]}</option>
+                  <option value="collaboration">{t.contact.subjCollab[lang]}</option>
                 </select>
-                <textarea className="field" name="message" placeholder="Your message..." value={form.message} onChange={handleChange} required style={{ height: 160, resize: "vertical" }} />
+                <textarea className="field" name="message" placeholder={t.contact.messagePH[lang]} value={form.message} onChange={handleChange} required style={{ height: 160, resize: "vertical" }} />
                 <button
                   type="submit"
                   disabled={status === "sending"}
                   className="btn-primary"
                   style={{ width: "100%", padding: "16px 32px", opacity: status === "sending" ? 0.6 : 1, cursor: status === "sending" ? "not-allowed" : "pointer" }}>
-                  {status === "sending" ? "Sending..." : "Send Message"}
+                  {status === "sending" ? t.contact.sendingBtn[lang] : t.contact.sendBtn[lang]}
                 </button>
                 {status === "error" && (
-                  <p style={{ color: "#e88", fontSize: "0.8rem", textAlign: "center" }}>Something went wrong. Please try again.</p>
+                  <p style={{ color: "#e88", fontSize: "0.8rem", textAlign: "center" }}>{t.contact.errorMsg[lang]}</p>
                 )}
               </form>
             )}
@@ -159,17 +157,8 @@ export function Contact() {
       </div>
 
       <style>{`
-        .contact-grid {
-          display: grid;
-          grid-template-columns: 1fr 1.4fr;
-          gap: 72px;
-          align-items: start;
-        }
-        .name-email-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-        }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start; }
+        .name-email-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 48px; }
           .name-email-row { grid-template-columns: 1fr; }
