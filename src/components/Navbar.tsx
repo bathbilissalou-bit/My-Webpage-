@@ -23,7 +23,7 @@ export function Navbar() {
     { name: t.nav.collection[lang],   href: "#shop" },
     { name: t.nav.lookbook[lang],     href: "#lookbook" },
     { name: t.nav.process[lang],      href: "#process" },
-    { name: t.nav.surMesure[lang],    href: "#why" },
+    { name: t.nav.surMesure[lang],    href: "#atelier" },
     { name: t.nav.measurements[lang], href: "#measurements" },
     { name: t.nav.contact[lang],      href: "#contact" },
   ];

@@ -68,7 +68,7 @@ export function WhyCustom() {
         </div>
 
         <div style={{ textAlign: "center", marginTop: 72 }}>
-          <a href="#contact" className="btn-primary">{t.whyCustom.cta[lang]}</a>
+          <a href="#atelier" className="btn-primary">{t.whyCustom.cta[lang]}</a>
         </div>
       </div>
 

@@ -367,4 +367,173 @@ export const t = {
     ),
     wearYourStory:  s("Wear Your Story.","Portez Votre Histoire.","Lleva Tu Historia."),
   },
+
+  atelier: {
+    badge:  s("Sur-Mesure Atelier",  "Atelier Sur-Mesure",   "Taller a Medida"),
+    title:  s("Begin Your Commission","Commencer Votre Commande","Iniciar Su Encargo"),
+    sub:    s(
+      "Six curated steps to your perfect piece.",
+      "Six étapes soigneusement conçues vers votre pièce parfaite.",
+      "Seis pasos cuidadosamente diseñados hacia su pieza perfecta."
+    ),
+    stepLabels: [
+      s("Category",     "Catégorie",     "Categoría"),
+      s("Style",        "Style",         "Estilo"),
+      s("Details",      "Détails",       "Detalles"),
+      s("Fabric",       "Tissu",         "Tela"),
+      s("Measurements", "Mensurations",  "Medidas"),
+      s("Review",       "Récapitulatif", "Resumen"),
+    ],
+    catTitle: s(
+      "What are you commissioning?",
+      "Que souhaitez-vous commander ?",
+      "¿Qué desea encargar?"
+    ),
+    catLabels: [
+      s("Tunique",          "Tunique",         "Túnica"),
+      s("3-Pièces",         "3-Pièces",        "3 Piezas"),
+      s("Leather Sneakers", "Baskets en Cuir", "Zapatillas de Cuero"),
+      s("Accessories",      "Accessoires",     "Accesorios"),
+    ],
+    catDescs: [
+      s(
+        "Signature African tunic, handcrafted to your silhouette.",
+        "Tunique africaine signature, confectionnée à votre silhouette.",
+        "Túnica africana signature, confeccionada a su silueta."
+      ),
+      s(
+        "Complete three-piece suit in super 220 fabric.",
+        "Costume trois-pièces complet en tissu super 220.",
+        "Traje de tres piezas completo en tela super 220."
+      ),
+      s(
+        "Hand-finished leather sneakers, built to your foot.",
+        "Baskets en cuir finies à la main, faites à vos mesures.",
+        "Zapatillas de cuero terminadas a mano, a la medida de su pie."
+      ),
+      s(
+        "Belts, pocket squares, and curated finishing pieces.",
+        "Ceintures, pochettes et pièces de finition soignées.",
+        "Cinturones, pañuelos y piezas de acabado seleccionadas."
+      ),
+    ],
+    styleTitle: s(
+      "Select your base style",
+      "Choisissez votre style de base",
+      "Seleccione su estilo base"
+    ),
+    filterAll:     s("All",     "Tous",     "Todos"),
+    filterNew:     s("New",     "Nouveau",  "Nuevo"),
+    filterClassic: s("Classic", "Classique","Clásico"),
+    detailsTitle:  s(
+      "Personalize your piece",
+      "Personnalisez votre pièce",
+      "Personalice su pieza"
+    ),
+    collarLabel: s("Collar Style",   "Style de Col",         "Estilo de Cuello"),
+    collars: [
+      s("Round Neck",  "Col Rond",     "Cuello Redondo"),
+      s("V-Neck",      "Col V",        "Cuello V"),
+      s("Mandarin",    "Col Mao",      "Cuello Mao"),
+      s("Band Collar", "Col Officier", "Cuello Banda"),
+    ],
+    sleeveLabel: s("Sleeve Length",  "Longueur des Manches", "Largo de Manga"),
+    sleeves: [
+      s("Short",       "Courtes", "Corta"),
+      s("3/4 Length",  "3/4",     "3/4"),
+      s("Full Length", "Longues", "Larga"),
+    ],
+    fitLabel: s("Fit",               "Coupe",                "Corte"),
+    fits: [
+      s("Slim",    "Slim",      "Slim"),
+      s("Regular", "Régulière", "Regular"),
+      s("Relaxed", "Ample",     "Holgada"),
+    ],
+    embLabel: s("Embroidery",        "Broderie",             "Bordado"),
+    embs: [
+      s("None",   "Aucune", "Sin bordado"),
+      s("Subtle", "Subtile","Sutil"),
+      s("Ornate", "Ornée",  "Ornamentado"),
+    ],
+    notesLabel: s("Special Requests","Demandes Spéciales",   "Solicitudes Especiales"),
+    notesPH: s(
+      "Describe any specific details, inspirations, or customizations...",
+      "Décrivez vos détails spécifiques, inspirations ou personnalisations...",
+      "Describa detalles específicos, inspiraciones o personalizaciones..."
+    ),
+    fabricTitle: s(
+      "Choose your fabric grade",
+      "Choisissez votre qualité de tissu",
+      "Elija la calidad de su tela"
+    ),
+    fabricSub: s(
+      "Each grade is selected for its hand feel, drape, and longevity.",
+      "Chaque qualité est sélectionnée pour son toucher, son tombé et sa longévité.",
+      "Cada calidad se selecciona por su tacto, caída y longevidad."
+    ),
+    fabric100Badge: s("Standard Excellence","Excellence Standard", "Excelencia Estándar"),
+    fabric100Label: s("Super 100",          "Super 100",           "Super 100"),
+    fabric100Desc: s(
+      "Refined and breathable. Structured for everyday distinction.",
+      "Raffiné et respirant. Structuré pour la distinction au quotidien.",
+      "Refinado y transpirable. Estructurado para la distinción diaria."
+    ),
+    fabric220Badge: s("Finest Grade",       "Qualité Supérieure",  "Calidad Superior"),
+    fabric220Label: s("Super 220",          "Super 220",           "Super 220"),
+    fabric220Desc: s(
+      "Featherlight with an immaculate drape. Reserved for exceptional occasions.",
+      "Légèreté absolue et tombé impeccable. Réservé aux occasions d'exception.",
+      "Ligereza absoluta y caída impecable. Reservado para ocasiones excepcionales."
+    ),
+    colorLabel: s("Color", "Couleur", "Color"),
+    colorNames: [
+      s("Navy",     "Marine",     "Marino"),
+      s("Charcoal", "Anthracite", "Antracita"),
+      s("Ivory",    "Ivoire",     "Marfil"),
+      s("Sage",     "Sauge",      "Salvia"),
+      s("Gold",     "Or",         "Dorado"),
+      s("Noir",     "Noir",       "Negro"),
+    ],
+    measTitle: s("Your measurements",      "Vos mensurations",             "Sus medidas"),
+    measSub: s(
+      "Enter your measurements in inches. Required fields are marked.",
+      "Saisissez vos mesures en pouces. Les champs obligatoires sont indiqués.",
+      "Ingrese sus medidas en pulgadas. Los campos requeridos están marcados."
+    ),
+    aiLink: s(
+      "Use AI measurement tool instead",
+      "Utiliser l'outil de mensuration IA",
+      "Usar herramienta de medición IA"
+    ),
+    fieldChest:    s("Chest (in)",   "Poitrine (po)",   "Pecho (pu)"),
+    fieldWaist:    s("Waist (in)",   "Taille (po)",     "Cintura (pu)"),
+    fieldHips:     s("Hips (in)",    "Hanches (po)",    "Caderas (pu)"),
+    fieldHeight:   s("Height (in)",  "Hauteur (po)",    "Altura (pu)"),
+    fieldInseam:   s("Inseam (in)",  "Entrejambe (po)", "Entrepierna (pu)"),
+    fieldShoulder: s("Shoulder (in)","Épaules (po)",    "Hombros (pu)"),
+    reviewTitle: s(
+      "Review your commission",
+      "Récapitulatif de votre commande",
+      "Resumen de su encargo"
+    ),
+    reviewSub: s(
+      "Confirm your selections. We will be in touch within 24 hours.",
+      "Confirmez vos choix. Nous vous contacterons dans les 24 heures.",
+      "Confirme sus selecciones. Nos pondremos en contacto en 24 horas."
+    ),
+    namePH:        s("Your full name",     "Votre nom complet",    "Su nombre completo"),
+    emailPH:       s("Your email",         "Votre email",          "Su email"),
+    submitBtn:     s("Submit Commission",  "Soumettre la Commande","Enviar Encargo"),
+    submittingBtn: s("Submitting...",      "Envoi en cours...",    "Enviando..."),
+    successTitle:  s("Commission Received","Commande Reçue",       "Encargo Recibido"),
+    successMsg: s(
+      "Thank you. We will review your commission and be in touch within 24 hours to confirm the details.",
+      "Merci. Nous examinerons votre commande et vous contacterons dans les 24 heures pour confirmer les détails.",
+      "Gracias. Revisaremos su encargo y nos pondremos en contacto en 24 horas para confirmar los detalles."
+    ),
+    back:   s("Back",  "Retour", "Volver"),
+    next:   s("Next",  "Suivant","Siguiente"),
+    stepOf: s("Step",  "Étape", "Paso"),
+    of:     s("of",    "sur",   "de"),
+  },
 };
