@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LangProvider } from "@/i18n/LangContext";
 import { ImageViewerProvider } from "@/context/ImageViewerContext";
+import { ConfiguratorProvider } from "@/context/ConfiguratorContext";
 import Home from "@/pages/Home";
 
 const queryClient = new QueryClient();
@@ -10,7 +11,9 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <LangProvider>
         <ImageViewerProvider>
-          <Home />
+          <ConfiguratorProvider>
+            <Home />
+          </ConfiguratorProvider>
         </ImageViewerProvider>
       </LangProvider>
     </QueryClientProvider>

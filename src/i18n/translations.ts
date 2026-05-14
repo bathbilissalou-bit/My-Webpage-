@@ -69,7 +69,8 @@ export const t = {
   shop: {
     label:   s("The Collection", "La Collection", "La Colección"),
     title:   s("Shop",           "Boutique",      "Tienda"),
-    btnShop: s("Shop Now",       "Voir",          "Ver"),
+    btnShop:      s("Shop Now",           "Voir",                       "Ver"),
+    configureBtn: s("Customize This Look","Personnaliser ce Look",      "Personalizar este Look"),
     cta:     s(
       "Request Custom Piece",
       "Commander une Pièce Sur-Mesure",
@@ -367,6 +368,53 @@ export const t = {
       "Une erreur est survenue. Veuillez réessayer.",
       "Algo salió mal. Por favor, inténtelo de nuevo."
     ),
+  },
+
+  configurator: {
+    headerLabel:      s("Customize This Look",        "Personnaliser ce Look",           "Personalizar este Look"),
+    colorTitle:       s("Select Color",               "Choisir la Couleur",              "Seleccionar Color"),
+    fabricTitle:      s("Select Fabric",              "Choisir le Tissu",                "Seleccionar Tejido"),
+    designTitle:      s("Design Style",               "Style de Création",               "Estilo de Diseño"),
+    fitTitle:         s("Fit Preference",             "Préférence de Coupe",             "Preferencia de Corte"),
+    notesTitle:       s("Custom Notes",               "Notes Personnalisées",            "Notas Personalizadas"),
+    notesPH:          s(
+      "Special requests, inspirations, cultural details...",
+      "Demandes spéciales, inspirations, détails culturels...",
+      "Solicitudes especiales, inspiraciones, detalles culturales..."
+    ),
+    contactTitle:     s("Your Details",              "Vos Coordonnées",                 "Sus Datos"),
+    namePH:           s("Your Name",                 "Votre Nom",                       "Su Nombre"),
+    emailPH:          s("Your Email",                "Votre Email",                     "Su Email"),
+    appointmentPH:    s(
+      "Appointment preference — share your available dates/times for a fitting consultation...",
+      "Préférence de rendez-vous — partagez vos disponibilités pour une consultation...",
+      "Preferencia de cita — indique sus fechas/horarios disponibles para una consulta..."
+    ),
+    requirementNote:  s(
+      "Measurements will be confirmed at your fitting appointment. A member of our team will be in touch within 24 hours to schedule.",
+      "Les mesures seront confirmées lors de votre rendez-vous de fitting. Un membre de notre équipe vous contactera sous 24h pour planifier.",
+      "Las medidas se confirmarán en su cita de fitting. Un miembro de nuestro equipo se pondrá en contacto en menos de 24 horas."
+    ),
+    summaryTitle:     s("Your Selection",            "Votre Sélection",                 "Su Selección"),
+    summaryColor:     s("Color",                     "Couleur",                         "Color"),
+    summaryFabric:    s("Fabric",                    "Tissu",                           "Tejido"),
+    summaryDesign:    s("Design",                    "Style",                           "Diseño"),
+    summaryFit:       s("Fit",                       "Coupe",                           "Corte"),
+    summaryNone:      s("Not selected",              "Non sélectionné",                 "No seleccionado"),
+    ctaHint:          s(
+      "Add your name and email to submit your commission request.",
+      "Ajoutez votre nom et email pour soumettre votre demande.",
+      "Agregue su nombre y email para enviar su solicitud."
+    ),
+    submitBtn:        s("Request This Piece",        "Demander cette Pièce",            "Solicitar esta Pieza"),
+    submittingBtn:    s("Submitting...",             "Envoi en cours...",               "Enviando..."),
+    successTitle:     s("Commission Request Received","Demande de Commission Reçue",   "Solicitud de Comisión Recibida"),
+    successMsg:       s(
+      "Thank you. We have received your commission request and will be in touch within 24 hours to discuss your piece and schedule your fitting.",
+      "Merci. Nous avons bien reçu votre demande et vous contacterons sous 24 heures pour discuter de votre pièce et planifier votre fitting.",
+      "Gracias. Hemos recibido su solicitud y nos pondremos en contacto en menos de 24 horas para hablar de su pieza y programar su fitting."
+    ),
+    closeBtn:         s("Close",                    "Fermer",                          "Cerrar"),
   },
 
   footer: {
