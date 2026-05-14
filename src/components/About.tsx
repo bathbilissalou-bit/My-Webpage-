@@ -15,7 +15,7 @@ export function About() {
           </p>
 
           <div className="about-stats" style={{ marginTop: 48, display: "flex", gap: 48, flexWrap: "wrap" }}>
-            {[["2020", "Founded"], ["100+", "Pieces Made"], ["50+", "Happy Clients"]].map(([num, label]) => (
+            {[["2024", "Founded"], ["100+", "Pieces Made"], ["50+", "Happy Clients"]].map(([num, label]) => (
               <div key={label}>
                 <div className="serif" style={{ fontSize: "2.5rem", fontWeight: 300, color: "var(--gold)", fontStyle: "italic" }}>{num}</div>
                 <div style={{ fontSize: "0.62rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 6 }}>{label}</div>

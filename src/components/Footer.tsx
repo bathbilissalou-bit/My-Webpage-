@@ -12,7 +12,7 @@ export function Footer() {
           {[
             { title: "Navigate", links: [["Home","#home"],["About","#about"],["Collection","#shop"],["Lookbook","#lookbook"],["Process","#process"],["Contact","#contact"]] },
             { title: "Services", links: [["Custom Orders","#contact"],["Alterations","#contact"],["Consultations","#contact"],["Styling","#contact"]] },
-            { title: "Connect", links: [["Instagram","#"],["Pinterest","#"],["Email Us","mailto:hello@havreplacide.com"],["Newsletter","#"]] },
+            { title: "Connect", links: [["Instagram","https://instagram.com/havreplacide"],["Facebook","https://facebook.com/Havrplacide"],["TikTok","https://tiktok.com/@haveplacide"],["Email Us","mailto:havreplacide@gmail.com"]] },
           ].map(col => (
             <div key={col.title}>
               <div style={{ fontSize: "0.6rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 20 }}>{col.title}</div>
@@ -30,7 +30,7 @@ export function Footer() {
         </div>
         <div style={{ borderTop: "1px solid var(--border)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
           <div style={{ fontSize: "0.65rem", color: "var(--text-dim)", letterSpacing: "0.2em" }}>
-            © 2025 HavrePlacide. All rights reserved.
+            © 2024 HavrePlacide LLC. All rights reserved.
           </div>
           <div style={{ fontSize: "0.65rem", color: "var(--text-dim)", letterSpacing: "0.2em" }}>
             Wear Your Story.

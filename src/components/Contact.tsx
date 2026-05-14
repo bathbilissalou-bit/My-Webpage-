@@ -86,8 +86,11 @@ export function Contact() {
             </p>
 
             {[
-              { label: "Email", value: "hello@havreplacide.com", href: "mailto:hello@havreplacide.com" },
-              { label: "Instagram", value: "@havreplacide", href: "https://instagram.com/havreplacide" },
+              { label: "Email", value: "havreplacide@gmail.com", href: "mailto:havreplacide@gmail.com" },
+              { label: "Phone", value: "+1 (646) 389-7810", href: "tel:+16463897810" },
+              { label: "Instagram", value: "Havreplacide LLC", href: "https://instagram.com/havreplacide" },
+              { label: "Facebook", value: "Havrplacide", href: "https://facebook.com/Havrplacide" },
+              { label: "TikTok", value: "@haveplacide", href: "https://tiktok.com/@haveplacide" },
               { label: "Response Time", value: "Within 24 hours", href: null },
             ].map(({ label, value, href }, i, arr) => (
               <div key={label} style={{
