@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
 import { processImageForUpload } from "@/lib/imageUtils";
+import { HelpIcon } from "@/components/MeasurementGuide";
 
 interface MeasurementResult {
   chest?: string; waist?: string; hips?: string; inseam?: string;
@@ -11,17 +12,17 @@ interface MeasurementResult {
 }
 
 const FIELD_GROUPS = [
-  ["chestPH",        "chest",         "Chest / Bust"],
-  ["waistPH",        "waist",         "Waist"],
-  ["hipsPH",         "hips",          "Hips"],
-  ["shoulderWidthPH","shoulderWidth",  "Shoulder Width"],
-  ["neckPH",         "neck",          "Neck"],
-  ["sleeveLengthPH", "sleeveLength",  "Sleeve Length"],
-  ["bicepPH",        "bicep",         "Bicep"],
-  ["wristPH",        "wrist",         "Wrist"],
-  ["backLengthPH",   "backLength",    "Back Length"],
-  ["inseamCalcPH",   "inseamCalc",    "Inseam"],
-  ["heightPH",       "calcHeight",    "Height"],
+  ["chestPH",        "chest",        "Chest / Bust",   "chest"],
+  ["waistPH",        "waist",        "Waist",          "waist"],
+  ["hipsPH",         "hips",         "Hips",           "hips"],
+  ["shoulderWidthPH","shoulderWidth","Shoulder Width",  "shoulder"],
+  ["neckPH",         "neck",         "Neck",            "neck"],
+  ["sleeveLengthPH", "sleeveLength", "Sleeve Length",  "sleeveLength"],
+  ["bicepPH",        "bicep",        "Bicep",           "bicep"],
+  ["wristPH",        "wrist",        "Wrist",           "wrist"],
+  ["backLengthPH",   "backLength",   "Back Length",    "backLength"],
+  ["inseamCalcPH",   "inseamCalc",   "Inseam",         "inseam"],
+  ["heightPH",       "calcHeight",   "Height",         "calcHeight"],
 ] as const;
 
 type FieldKey = typeof FIELD_GROUPS[number][1];
@@ -362,18 +363,25 @@ export function Measurements() {
             </p>
 
             <div className="calc-fields-grid">
-              {FIELD_GROUPS.map(([phKey, stateKey]) => (
-                <input
-                  key={stateKey}
-                  className="field"
-                  type="number"
-                  step="0.5"
-                  min="0"
-                  inputMode="decimal"
-                  placeholder={(t.measurements as Record<string, { en: string; fr: string; es: string }>)[phKey][lang]}
-                  value={fields[stateKey]}
-                  onChange={e => setField(stateKey, e.target.value)}
-                />
+              {FIELD_GROUPS.map(([phKey, stateKey, label, guideKey]) => (
+                <div key={stateKey} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>
+                      {label}
+                    </span>
+                    <HelpIcon measurementKey={guideKey} />
+                  </div>
+                  <input
+                    className="field"
+                    type="number"
+                    step="0.5"
+                    min="0"
+                    inputMode="decimal"
+                    placeholder={(t.measurements as Record<string, { en: string; fr: string; es: string }>)[phKey][lang]}
+                    value={fields[stateKey]}
+                    onChange={e => setField(stateKey, e.target.value)}
+                  />
+                </div>
               ))}
             </div>
 

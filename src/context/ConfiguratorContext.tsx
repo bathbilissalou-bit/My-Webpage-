@@ -31,6 +31,7 @@ import { useRef, useEffect } from "react";
 import { DESIGN_OPTIONS, FIT_OPTIONS } from "@/data/productCatalog";
 import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
+import { HelpIcon } from "@/components/MeasurementGuide";
 
 interface Selection {
   colorIdx: number;
@@ -357,24 +358,31 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
           <Section label={cfg.measurementsTitle[lang]} required>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {([
-                ["chest",    cfg.mChest[lang]],
-                ["waist",    cfg.mWaist[lang]],
-                ["hips",     cfg.mHips[lang]],
-                ["height",   cfg.mHeight[lang]],
-                ["shoulder", cfg.mShoulder[lang]],
-                ["inseam",   cfg.mInseam[lang]],
-              ] as [keyof Selection, string][]).map(([key, ph]) => (
-                <input
-                  key={key}
-                  className={`field${triedSubmit && !sel[key] ? " field--error" : ""}`}
-                  type="number"
-                  step="0.5"
-                  min="0"
-                  inputMode="decimal"
-                  placeholder={ph}
-                  value={sel[key] as string}
-                  onChange={e => set(key, e.target.value)}
-                />
+                ["chest",    cfg.mChest[lang],    "chest"],
+                ["waist",    cfg.mWaist[lang],    "waist"],
+                ["hips",     cfg.mHips[lang],     "hips"],
+                ["height",   cfg.mHeight[lang],   "calcHeight"],
+                ["shoulder", cfg.mShoulder[lang], "shoulder"],
+                ["inseam",   cfg.mInseam[lang],   "inseam"],
+              ] as [keyof Selection, string, string][]).map(([key, ph, guideKey]) => (
+                <div key={key} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>
+                      {ph.replace(/" \*$/, "").replace(/ \(in\)$/, "")}
+                    </span>
+                    <HelpIcon measurementKey={guideKey} />
+                  </div>
+                  <input
+                    className={`field${triedSubmit && !sel[key] ? " field--error" : ""}`}
+                    type="number"
+                    step="0.5"
+                    min="0"
+                    inputMode="decimal"
+                    placeholder={ph}
+                    value={sel[key] as string}
+                    onChange={e => set(key, e.target.value)}
+                  />
+                </div>
               ))}
             </div>
             <p style={{ marginTop: 12, fontSize: "0.68rem", color: "var(--text-dim)", lineHeight: 1.7 }}>
