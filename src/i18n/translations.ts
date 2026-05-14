@@ -79,9 +79,9 @@ export const t = {
       {
         name: s("Tunique Bleu Marine", "Tunique Bleu Marine", "Túnica Azul Marino"),
         desc: s(
-          "Handcrafted in super 220 fabric — deep navy with signature embroidered pocket detail. Structured, sharp, and unmistakably HavrePlacide.",
-          "Confectionnée en tissu super 220 — bleu marine profond avec détail brodé signature sur la poche. Structurée, nette et incontestablement HavrePlacide.",
-          "Confeccionada en tela super 220 — azul marino profundo con detalle bordado característico en el bolsillo. Estructurada, nítida e inconfundiblemente HavrePlacide."
+          "Handcrafted in super 220 fabric. Deep navy with signature embroidered pocket detail. Structured, sharp, and unmistakably HavrePlacide.",
+          "Confectionnée en tissu super 220. Bleu marine profond avec détail brodé signature sur la poche. Structurée, nette et incontestablement HavrePlacide.",
+          "Confeccionada en tela super 220. Azul marino profundo con detalle bordado característico en el bolsillo. Estructurada, nítida e inconfundiblemente HavrePlacide."
         ),
         price: "$350 – $400",
       },
@@ -97,9 +97,9 @@ export const t = {
       {
         name: s("Tunique Grège", "Tunique Grège", "Túnica Greige"),
         desc: s(
-          "Crafted in super 220 — our finest grade. Twin floral-embroidered chest pockets and a polished cufflink finish. Subtle luxury in every thread.",
-          "Confectionnée en super 220 — notre qualité la plus fine. Double poche poitrine brodée de motifs floraux et finition boutons de manchette. Un luxe subtil dans chaque fil.",
-          "Confeccionada en super 220 — nuestra mejor calidad. Doble bolsillo bordado con motivos florales y acabado de gemelos pulidos. Lujo sutil en cada hilo."
+          "Crafted in super 220, our finest grade. Twin floral-embroidered chest pockets and a polished cufflink finish. Subtle luxury in every thread.",
+          "Confectionnée en super 220, notre qualité la plus fine. Double poche poitrine brodée de motifs floraux et finition boutons de manchette. Un luxe subtil dans chaque fil.",
+          "Confeccionada en super 220, nuestra mejor calidad. Doble bolsillo bordado con motivos florales y acabado de gemelos pulidos. Lujo sutil en cada hilo."
         ),
         price: "$350 – $400",
       },
@@ -112,7 +112,7 @@ export const t = {
     season:   s("Spring / Summer 2025","Printemps / Été 2025","Primavera / Verano 2025"),
     looks: [
       { title: s("His & Hers Collection","Collection Lui & Elle","Colección Él & Ella") },
-      { title: s("Editorial — Spring",   "Éditorial — Printemps","Editorial — Primavera") },
+      { title: s("Spring Editorial",   "Éditorial Printemps","Editorial Primavera") },
       { title: s("Relaxed Tailoring",    "Tailleur Décontracté", "Sastrería Relajada") },
       { title: s("Craftsmanship Detail", "Détail Artisanal",     "Detalle Artesanal") },
       { title: s("Signature Finish",     "Finition Signature",   "Acabado Signature") },
@@ -127,9 +127,9 @@ export const t = {
       {
         title: s("Choose Your Style",       "Choisir Votre Style",          "Elegir Su Estilo"),
         desc:  s(
-          "Browse our African-inspired silhouettes — tuniques, 3-pièces, leather sneakers, and accessories. Tell us what speaks to you, and we'll guide the rest.",
-          "Parcourez nos silhouettes d'inspiration africaine — tuniques, 3-pièces, baskets en cuir et accessoires. Dites-nous ce qui vous parle, nous vous guidons pour le reste.",
-          "Explore nuestras siluetas de inspiración africana — túnicas, 3 piezas, zapatillas de cuero y accesorios. Díganos qué le atrae y le guiaremos en el resto."
+          "Browse our African-inspired silhouettes: tuniques, 3-pièces, leather sneakers, and accessories. Tell us what speaks to you, and we'll guide the rest.",
+          "Parcourez nos silhouettes d'inspiration africaine : tuniques, 3-pièces, baskets en cuir et accessoires. Dites-nous ce qui vous parle, nous vous guidons pour le reste.",
+          "Explore nuestras siluetas de inspiración africana: túnicas, 3 piezas, zapatillas de cuero y accesorios. Díganos qué le atrae y le guiaremos en el resto."
         ),
       },
       {
@@ -143,17 +143,17 @@ export const t = {
       {
         title: s("Select Your Fabric",      "Choisir Votre Tissu",           "Seleccionar Su Tela"),
         desc:  s(
-          "Choose from super 100 or super 220 grade fabrics — fine materials selected for quality, drape, and durability, rooted in African textile tradition.",
-          "Choisissez parmi les tissus super 100 ou super 220 — des matières sélectionnées pour leur qualité, leur tombé et leur durabilité, ancrées dans la tradition textile africaine.",
-          "Elija entre telas de grado super 100 o super 220 — materiales finos seleccionados por su calidad, caída y durabilidad, enraizados en la tradición textil africana."
+          "Choose from super 100 or super 220 grade fabrics. Fine materials selected for quality, drape, and durability, rooted in African textile tradition.",
+          "Choisissez parmi les tissus super 100 ou super 220. Des matières sélectionnées pour leur qualité, leur tombé et leur durabilité, ancrées dans la tradition textile africaine.",
+          "Elija entre telas de grado super 100 o super 220. Materiales finos seleccionados por su calidad, caída y durabilidad, enraizados en la tradición textil africana."
         ),
       },
       {
         title: s("We Craft Your Piece",     "Nous Confectionnons Votre Pièce","Confeccionamos Su Pieza"),
         desc:  s(
-          "Every piece is handmade by skilled artisans — stitched with care, shaped with precision, finished with the time it takes to get it right.",
-          "Chaque pièce est fabriquée à la main par des artisans qualifiés — cousue avec soin, façonnée avec précision, finalisée avec le temps qu'il faut pour bien faire.",
-          "Cada pieza es confeccionada a mano por artesanos expertos — cosida con cuidado, moldeada con precisión, terminada con el tiempo necesario para hacerlo bien."
+          "Every piece is handmade by skilled artisans. Stitched with care, shaped with precision, finished with the time it takes to get it right.",
+          "Chaque pièce est fabriquée à la main par des artisans qualifiés. Cousue avec soin, façonnée avec précision, finalisée avec le temps qu'il faut pour bien faire.",
+          "Cada pieza es confeccionada a mano por artesanos expertos. Cosida con cuidado, moldeada con precisión, terminada con el tiempo necesario para hacerlo bien."
         ),
       },
       {
@@ -171,9 +171,9 @@ export const t = {
     label: s("Why Sur-Mesure",     "Pourquoi le Sur-Mesure", "Por Qué a Medida"),
     title: s("Why Choose Custom?", "Pourquoi Choisir le Sur-Mesure ?","¿Por Qué Elegir a Medida?"),
     sub: s(
-      "Ready-to-wear was never designed with you in mind. Sur-mesure is the opposite — every choice, every cut, every thread made for you specifically.",
-      "Le prêt-à-porter n'a jamais été conçu pour vous. Le sur-mesure, c'est tout le contraire — chaque choix, chaque coupe, chaque fil pensé spécialement pour vous.",
-      "La ropa de confección nunca fue diseñada pensando en usted. Lo hecho a medida es todo lo contrario — cada elección, cada corte, cada hilo hecho específicamente para usted."
+      "Ready-to-wear was never designed with you in mind. Sur-mesure is the opposite: every choice, every cut, every thread made for you specifically.",
+      "Le prêt-à-porter n'a jamais été conçu pour vous. Le sur-mesure, c'est tout le contraire : chaque choix, chaque coupe, chaque fil pensé spécialement pour vous.",
+      "La ropa de confección nunca fue diseñada pensando en usted. Lo hecho a medida es todo lo contrario: cada elección, cada corte, cada hilo hecho específicamente para usted."
     ),
     cta: s("Begin Your Commission","Commencer Ma Commande","Iniciar Mi Encargo"),
     benefits: [
@@ -181,27 +181,27 @@ export const t = {
         title:    s("Coupe Parfaite",   "Coupe Parfaite",    "Corte Perfecto"),
         subtitle: s("Perfect Fit",      "Ajustement Parfait", "Ajuste Perfecto"),
         desc:     s(
-          "Every piece is measured, cut, and tailored precisely to your body. No approximations, no compromises — a garment that moves with you, built for your proportions alone.",
-          "Chaque pièce est mesurée, coupée et ajustée précisément à votre corps. Sans approximations ni compromis — un vêtement qui vous suit, conçu pour vos seules proportions.",
-          "Cada pieza se mide, corta y confecciona con precisión para su cuerpo. Sin aproximaciones ni compromisos — una prenda que se mueve con usted, hecha solo para sus proporciones."
+          "Every piece is measured, cut, and tailored precisely to your body. No approximations, no compromises. A garment that moves with you, built for your proportions alone.",
+          "Chaque pièce est mesurée, coupée et ajustée précisément à votre corps. Sans approximations ni compromis. Un vêtement qui vous suit, conçu pour vos seules proportions.",
+          "Cada pieza se mide, corta y confecciona con precisión para su cuerpo. Sin aproximaciones ni compromisos. Una prenda que se mueve con usted, hecha solo para sus proporciones."
         ),
       },
       {
         title:    s("Matières Premiums", "Matières Premiums",  "Materiales Premium"),
         subtitle: s("Premium Materials", "Matières d'Exception","Materiales de Excepción"),
         desc:     s(
-          "We work exclusively with super 100 and super 220 fabrics — fine, durable materials selected for their quality, drape, and longevity. Sourced with care, crafted with intention.",
-          "Nous travaillons exclusivement avec des tissus super 100 et super 220 — des matières fines et durables sélectionnées pour leur qualité, leur tombé et leur longévité. Sourcées avec soin, confectionnées avec intention.",
-          "Trabajamos exclusivamente con telas super 100 y super 220 — materiales finos y duraderos seleccionados por su calidad, caída y longevidad. Obtenidos con cuidado, confeccionados con intención."
+          "We work exclusively with super 100 and super 220 fabrics. Fine, durable materials selected for their quality, drape, and longevity. Sourced with care, crafted with intention.",
+          "Nous travaillons exclusivement avec des tissus super 100 et super 220. Des matières fines et durables sélectionnées pour leur qualité, leur tombé et leur longévité. Sourcées avec soin, confectionnées avec intention.",
+          "Trabajamos exclusivamente con telas super 100 y super 220. Materiales finos y duraderos seleccionados por su calidad, caída y longevidad. Obtenidos con cuidado, confeccionados con intención."
         ),
       },
       {
         title:    s("Pièce Unique", "Pièce Unique",    "Pieza Única"),
         subtitle: s("One of a Kind","Une Seule au Monde","Una en el Mundo"),
         desc:     s(
-          "Each HavrePlacide piece is handcrafted one at a time. Your creation exists nowhere else in the world — as singular as your identity, and made to last a lifetime.",
-          "Chaque pièce HavrePlacide est confectionnée à la main, une à la fois. Votre création n'existe nulle part ailleurs dans le monde — aussi singulière que votre identité, et faite pour durer toute une vie.",
-          "Cada pieza HavrePlacide se confecciona a mano, una a la vez. Su creación no existe en ningún otro lugar del mundo — tan singular como su identidad, y hecha para durar toda una vida."
+          "Each HavrePlacide piece is handcrafted one at a time. Your creation exists nowhere else in the world, as singular as your identity and made to last a lifetime.",
+          "Chaque pièce HavrePlacide est confectionnée à la main, une à la fois. Votre création n'existe nulle part ailleurs dans le monde, aussi singulière que votre identité et faite pour durer toute une vie.",
+          "Cada pieza HavrePlacide se confecciona a mano, una a la vez. Su creación no existe en ningún otro lugar del mundo, tan singular como su identidad y hecha para durar toda una vida."
         ),
       },
     ],

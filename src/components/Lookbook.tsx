@@ -2,7 +2,7 @@ import { useLang } from "@/i18n/LangContext";
 import { t } from "@/i18n/translations";
 
 const lookImages = [
-  { src: "/img-couple-navy.jpeg",    alt: "His & Hers — Navy Elegance",  label: "SS 2025" },
+  { src: "/img-couple-navy.jpeg",    alt: "His & Hers, Navy Elegance",  label: "SS 2025" },
   { src: "/img-man-grey-outdoor.jpeg", alt: "The Grey Linen Look",       label: "SS 2025" },
   { src: "/img-man-navy-seated.jpeg",  alt: "Navy Relaxed Tailoring",    label: "SS 2025" },
   { src: "/img-sage-detail.jpg",       alt: "Sage Detail Close-up",      label: "SS 2025" },
