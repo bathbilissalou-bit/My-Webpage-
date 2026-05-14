@@ -45,14 +45,14 @@ export const t = {
       "Un Refugio Tranquilo, Arraigado en la Excelencia Africana"
     ),
     p1: s(
-      "Founded by Bath Bilissalou, from the Republic of Congo to the streets of New York, HavrePlacide was born from a deep love of African heritage and a belief that fashion can carry culture. Every piece tells a story worth wearing.",
-      "Fondée par Bath Bilissalou, de la République du Congo aux rues de New York, HavrePlacide est née d'un amour profond pour l'héritage africain et la conviction que la mode peut porter une culture. Chaque pièce raconte une histoire qui mérite d'être portée.",
-      "Fundada por Bath Bilissalou, de la República del Congo a las calles de Nueva York, HavrePlacide nació de un profundo amor por el patrimonio africano y la convicción de que la moda puede llevar cultura. Cada pieza cuenta una historia digna de llevar."
+      "Founded by Bath Bilissalou, from the Republic of Congo to New York, HavrePlacide was born from a passion for African heritage and a vision of fashion rooted in culture, elegance, and identity.",
+      "Fondée par Bath Bilissalou, de la République du Congo à New York, HavrePlacide est née d'une passion pour l'héritage africain et d'une vision de la mode ancrée dans la culture, l'élégance et l'identité.",
+      "Fundada por Bath Bilissalou, de la República del Congo a Nueva York, HavrePlacide nació de una pasión por el patrimonio africano y una visión de la moda arraigada en la cultura, la elegancia y la identidad."
     ),
     p2: s(
-      "Each piece is handcrafted with intention, made for those who see what they wear as a reflection of who they are. Rooted in tradition, shaped for today.",
-      "Chaque pièce est confectionnée à la main avec intention, pour ceux qui voient ce qu'ils portent comme le reflet de qui ils sont. Ancrée dans la tradition, façonnée pour aujourd'hui.",
-      "Cada pieza se confecciona a mano con intención, hecha para quienes ven lo que visten como reflejo de quiénes son. Arraigada en la tradición, diseñada para hoy."
+      "Each piece is handcrafted with intention for those who see fashion as a reflection of who they are. Rooted in tradition and shaped for today, every creation tells a story worth wearing.",
+      "Chaque pièce est confectionnée à la main avec intention, pour ceux qui voient la mode comme le reflet de qui ils sont. Ancrée dans la tradition et façonnée pour aujourd'hui, chaque création raconte une histoire qui mérite d'être portée.",
+      "Cada pieza se confecciona a mano con intención, para quienes ven la moda como un reflejo de quiénes son. Arraigada en la tradición y diseñada para hoy, cada creación cuenta una historia digna de llevar."
     ),
     statFounded:  s("Founded",       "Fondée",          "Fundada"),
     statPieces:   s("Pieces Made",   "Pièces Créées",   "Piezas Creadas"),
