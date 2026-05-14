@@ -253,6 +253,13 @@ export const t = {
       "Notes supplémentaires (taille, poids, préférences de coupe)...",
       "Notas adicionales (altura, peso, preferencias de corte)..."
     ),
+    uploadGallery: s("Photo Library",           "Galerie Photo",                 "Galería"),
+    uploadCamera:  s("Take Photo",              "Prendre une Photo",             "Tomar Foto"),
+    uploadHint:    s(
+      "Supports JPG, PNG, HEIC (iPhone). Image is compressed automatically.",
+      "Formats JPG, PNG, HEIC (iPhone). L'image est compressée automatiquement.",
+      "Formatos JPG, PNG, HEIC (iPhone). La imagen se comprime automáticamente."
+    ),
     analyzeBtn:    s("Analyze Measurements",    "Analyser les Mensurations",     "Analizar Medidas"),
     analyzingBtn:  s("Analyzing...",            "Analyse en cours...",           "Analizando..."),
     resultTitle:   s("Your Measurements",       "Vos Mensurations",              "Sus Medidas"),
