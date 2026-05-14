@@ -79,9 +79,9 @@ export const t = {
       {
         name: s("Tunique Bleu Marine", "Tunique Bleu Marine", "Túnica Azul Marino"),
         desc: s(
-          "Handcrafted in super 100 fabric — deep navy with signature embroidered pocket detail. Structured, sharp, and unmistakably HavrePlacide.",
-          "Confectionnée en tissu super 100 — bleu marine profond avec détail brodé signature sur la poche. Structurée, nette et incontestablement HavrePlacide.",
-          "Confeccionada en tela super 100 — azul marino profundo con detalle bordado característico en el bolsillo. Estructurada, nítida e inconfundiblemente HavrePlacide."
+          "Handcrafted in super 220 fabric — deep navy with signature embroidered pocket detail. Structured, sharp, and unmistakably HavrePlacide.",
+          "Confectionnée en tissu super 220 — bleu marine profond avec détail brodé signature sur la poche. Structurée, nette et incontestablement HavrePlacide.",
+          "Confeccionada en tela super 220 — azul marino profundo con detalle bordado característico en el bolsillo. Estructurada, nítida e inconfundiblemente HavrePlacide."
         ),
         price: "$350 – $400",
       },
