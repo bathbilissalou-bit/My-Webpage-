@@ -58,6 +58,17 @@ const EMPTY_SEL: Selection = {
   name: "", email: "", appointment: "",
 };
 
+/** Luminance-aware opacity so every colour reads clearly over the base photo. */
+function colorOverlayOpacity(hex: string): number {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  if (lum > 0.6) return 0.78; // very light (Ivory, White) — needs more opacity to show
+  if (lum > 0.3) return 0.65; // mid tones (Stone, Taupe, Sage, Gold)
+  return 0.55;                 // dark (Navy, Midnight, Burgundy, Charcoal)
+}
+
 function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct; onClose: () => void }) {
   const { lang } = useLang();
   const cfg = t.configurator;
@@ -258,27 +269,71 @@ function ConfiguratorModal({ product, onClose }: { product: ConfigurableProduct;
 
         {/* Left: sticky image + summary */}
         <div className="cfg-left">
-          <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", border: "1px solid var(--border)", marginBottom: 24 }}>
+          {/* Fabric colour preview */}
+          <div
+            style={{
+              position: "relative", aspectRatio: "3/4",
+              overflow: "hidden", border: "1px solid var(--border)",
+              marginBottom: 8, isolation: "isolate",
+            }}
+          >
             <img
               src={product.image}
               alt={product.name}
               draggable={false}
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
+              style={{
+                width: "100%", height: "100%", objectFit: "cover",
+                display: "block", pointerEvents: "none",
+                filter: selectedColor ? "saturate(0.6) brightness(0.97)" : "none",
+                transition: "filter 0.5s var(--ease-lux)",
+              }}
             />
-            {selectedColor && (
-              <div style={{
-                position: "absolute", bottom: 0, left: 0, right: 0,
-                padding: "12px 16px",
-                background: "linear-gradient(transparent, rgba(0,0,0,0.8))",
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: selectedColor.hex, border: "1px solid rgba(255,255,255,0.3)", flexShrink: 0 }} />
-                  <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#fff" }}>
-                    {selectedColor.name}
-                  </span>
-                </div>
+
+            {/* Colour dye simulation — mix-blend-mode:color preserves luminance (shadows/highlights/drape)
+                and applies only the selected hue+saturation, like a fabric dye over the same cut */}
+            <div
+              style={{
+                position: "absolute", inset: 0,
+                background: selectedColor?.hex ?? "transparent",
+                mixBlendMode: "color",
+                opacity: selectedColor ? colorOverlayOpacity(selectedColor.hex) : 0,
+                transition: "background 0.5s var(--ease-lux), opacity 0.5s var(--ease-lux)",
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* Bottom label strip */}
+            <div style={{
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              padding: "20px 16px 14px",
+              background: "linear-gradient(transparent, rgba(0,0,0,0.82))",
+              pointerEvents: "none",
+              transition: "opacity 0.4s",
+              opacity: selectedColor ? 1 : 0,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{
+                  width: 10, height: 10, flexShrink: 0,
+                  background: selectedColor?.hex ?? "transparent",
+                  border: "1px solid rgba(255,255,255,0.35)",
+                  boxShadow: "0 0 0 1px rgba(0,0,0,0.4)",
+                }} />
+                <span style={{ fontSize: "0.58rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#fff" }}>
+                  {selectedColor?.name}
+                </span>
               </div>
-            )}
+            </div>
+          </div>
+
+          {/* Colour preview hint */}
+          <div style={{
+            fontSize: "0.52rem", letterSpacing: "0.22em", textTransform: "uppercase",
+            color: selectedColor ? "var(--gold)" : "var(--text-dim)",
+            textAlign: "center", marginBottom: 20,
+            transition: "color 0.4s",
+            opacity: selectedColor ? 0.75 : 0.4,
+          }}>
+            {selectedColor ? "Colour preview" : "Select a colour to preview"}
           </div>
 
           {/* Live summary */}
