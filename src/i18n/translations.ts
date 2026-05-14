@@ -28,9 +28,9 @@ export const t = {
     ),
     sub: s("Bespoke Creations", "Créations Sur-Mesure", "Creaciones a Medida"),
     body: s(
-      "Handcrafted garments, shoes & accessories celebrating African cultural identity — made for those who wear their story with pride.",
-      "Vêtements, chaussures & accessoires artisanaux célébrant l'identité culturelle africaine — pour ceux qui portent leur histoire avec fierté.",
-      "Prendas, zapatos y accesorios artesanales que celebran la identidad cultural africana — para quienes llevan su historia con orgullo."
+      "Handcrafted garments, shoes and accessories celebrating African cultural identity. Made for those who wear their story with pride.",
+      "Vêtements, chaussures et accessoires artisanaux célébrant l'identité culturelle africaine. Pour ceux qui portent leur histoire avec fierté.",
+      "Prendas, zapatos y accesorios artesanales que celebran la identidad cultural africana. Para quienes llevan su historia con orgullo."
     ),
     cta1:   s("Discover the Collection", "Découvrir la Collection",  "Descubrir la Colección"),
     cta2:   s("Order Sur-Mesure",        "Commander Sur-Mesure",     "Pedir a Medida"),
@@ -45,14 +45,14 @@ export const t = {
       "Un Refugio Tranquilo, Arraigado en la Excelencia Africana"
     ),
     p1: s(
-      "HavrePlacide — a peaceful haven in fashion. Founded by Bath Bilissalou, originally from the Republic of Congo and based in New York, the brand was born from over fifteen years of immersion in fashion, the arts, and the African diaspora. Every stitch carries that heritage; every silhouette speaks to belonging.",
-      "HavrePlacide — un refuge paisible au sein de la mode. Fondée par Bath Bilissalou, originaire de la République du Congo et basé à New York, la marque est née de plus de quinze ans d'immersion dans la mode, les arts et la diaspora africaine. Chaque point porte cet héritage ; chaque silhouette parle d'appartenance.",
-      "HavrePlacide — un refugio tranquilo en la moda. Fundada por Bath Bilissalou, originario de la República del Congo y establecido en Nueva York, la marca nació de más de quince años de inmersión en la moda, las artes y la diáspora africana. Cada puntada lleva ese legado; cada silueta habla de pertenencia."
+      "Founded by Bath Bilissalou, from the Republic of Congo to the streets of New York, HavrePlacide was born from a deep love of African heritage and a belief that fashion can carry culture. Every piece tells a story worth wearing.",
+      "Fondée par Bath Bilissalou, de la République du Congo aux rues de New York, HavrePlacide est née d'un amour profond pour l'héritage africain et la conviction que la mode peut porter une culture. Chaque pièce raconte une histoire qui mérite d'être portée.",
+      "Fundada por Bath Bilissalou, de la República del Congo a las calles de Nueva York, HavrePlacide nació de un profundo amor por el patrimonio africano y la convicción de que la moda puede llevar cultura. Cada pieza cuenta una historia digna de llevar."
     ),
     p2: s(
-      "We create handcrafted garments, shoes, and accessories that celebrate African cultural identity — made for those who believe that what they wear is an extension of who they are. Serving the African diaspora and beyond, each HavrePlacide piece is a bridge between tradition and the present moment.",
-      "Nous créons des vêtements, chaussures et accessoires artisanaux qui célèbrent l'identité culturelle africaine — pour ceux qui croient que ce qu'ils portent est le reflet de qui ils sont. Au service de la diaspora africaine et au-delà, chaque pièce HavrePlacide est un pont entre la tradition et le moment présent.",
-      "Creamos prendas, zapatos y accesorios artesanales que celebran la identidad cultural africana — para quienes creen que lo que visten es una extensión de quiénes son. Al servicio de la diáspora africana y más allá, cada pieza HavrePlacide es un puente entre la tradición y el momento presente."
+      "Each piece is handcrafted with intention, made for those who see what they wear as a reflection of who they are. Rooted in tradition, shaped for today.",
+      "Chaque pièce est confectionnée à la main avec intention, pour ceux qui voient ce qu'ils portent comme le reflet de qui ils sont. Ancrée dans la tradition, façonnée pour aujourd'hui.",
+      "Cada pieza se confecciona a mano con intención, hecha para quienes ven lo que visten como reflejo de quiénes son. Arraigada en la tradición, diseñada para hoy."
     ),
     statFounded:  s("Founded",       "Fondée",          "Fundada"),
     statPieces:   s("Pieces Made",   "Pièces Créées",   "Piezas Creadas"),
@@ -315,7 +315,6 @@ export const t = {
     igLabel:       s("Instagram",     "Instagram",    "Instagram"),
     fbLabel:       s("Facebook",      "Facebook",     "Facebook"),
     ttLabel:       s("TikTok",        "TikTok",       "TikTok"),
-    addressLabel:  s("Address",       "Adresse",      "Dirección"),
     responseLabel: s("Response Time", "Délai de Réponse","Tiempo de Respuesta"),
     responseValue: s("Within 24 hours","Sous 24 heures","En menos de 24 horas"),
     namePH:        s("Your Name",     "Votre Nom",    "Su Nombre"),
