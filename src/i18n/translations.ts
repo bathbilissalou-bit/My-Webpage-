@@ -295,6 +295,11 @@ export const t = {
       "Une erreur est survenue.",
       "Algo salió mal."
     ),
+    comingSoon: s(
+      "Photo analysis is coming soon. Please enter your measurements manually for now.",
+      "L'analyse photo arrive bientôt. Veuillez saisir vos mensurations manuellement pour le moment.",
+      "El análisis de fotos llega pronto. Por favor, ingrese sus medidas manualmente por ahora."
+    ),
   },
 
   contact: {

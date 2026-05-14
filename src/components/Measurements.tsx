@@ -6,6 +6,7 @@ interface MeasurementResult {
   chest?: string; waist?: string; hips?: string; inseam?: string;
   shoulder?: string; height?: string;
   recommendedSize: string; notes: string; confidence: string;
+  comingSoon?: boolean;
 }
 
 export function Measurements() {
@@ -124,7 +125,20 @@ export function Measurements() {
               </div>
             )}
 
-            {result && (
+            {result?.comingSoon && (
+              <div style={{
+                marginTop: 24, padding: "24px 28px",
+                border: "1px solid var(--gold)", background: "var(--bg-2)",
+                display: "flex", alignItems: "flex-start", gap: 16,
+              }}>
+                <div style={{ width: 8, height: 8, border: "1px solid var(--gold)", transform: "rotate(45deg)", flexShrink: 0, marginTop: 4 }} />
+                <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.8, margin: 0 }}>
+                  {t.measurements.comingSoon[lang]}
+                </p>
+              </div>
+            )}
+
+            {result && !result.comingSoon && (
               <div style={{ marginTop: 40, border: "1px solid var(--gold)", padding: 32 }}>
                 <h4 style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 24, paddingBottom: 16, borderBottom: "1px solid var(--border)" }}>
                   {t.measurements.resultTitle[lang]}
