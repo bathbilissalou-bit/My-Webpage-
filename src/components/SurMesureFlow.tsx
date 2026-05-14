@@ -145,7 +145,7 @@ export function SurMesureFlow() {
       `Notes: ${order.notes || "None"}`,
       `Fabric: ${order.fabricGrade === "super100" ? "Super 100" : "Super 220"}`,
       `Color: ${order.colorIdx >= 0 ? a.colorNames[order.colorIdx].en : ""}`,
-      `Measurements — Chest: ${order.chest}", Waist: ${order.waist}", Hips: ${order.hips}", Height: ${order.height}", Inseam: ${order.inseam}", Shoulder: ${order.shoulder}"`,
+      `Measurements: Chest ${order.chest}", Waist ${order.waist}", Hips ${order.hips}", Height ${order.height}", Inseam ${order.inseam}", Shoulder ${order.shoulder}"`,
     ].join("\n");
     try {
       const res = await fetch("/api/contact", {

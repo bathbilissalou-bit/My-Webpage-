@@ -46,7 +46,7 @@ Respond ONLY with valid JSON, no preamble or markdown:
   "height": "e.g. 70\\"",
   "recommendedSize": "S, M, L, or XL",
   "notes": "professional fit notes and caveats",
-  "confidence": "Low/Medium/High — brief reason"
+  "confidence": "Low, Medium, or High with brief reason"
 }
 Omit fields you cannot estimate. Be honest about confidence.`,
           },
