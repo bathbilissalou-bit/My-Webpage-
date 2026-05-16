@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import Anthropic from "@anthropic-ai/sdk";
 import cors from "cors";
@@ -14,9 +15,14 @@ app.post("/api/measurements/analyze", async (req, res) => {
   if (!imageBase64 || !mimeType) {
     return res.status(400).json({ error: "Image is required." });
   }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return res.status(200).json({ comingSoon: true });
+  }
+
   try {
     const response = await anthropic.messages.create({
-      model: "claude-opus-4-6",
+      model: "claude-sonnet-4-6",
       max_tokens: 1024,
       messages: [{
         role: "user",
@@ -46,10 +52,20 @@ Omit fields you cannot estimate. Be honest about confidence.`
       }]
     });
     const text = response.content[0].type === "text" ? response.content[0].text : "";
-    const result = JSON.parse(text.replace(/```json|```/g, "").trim());
+    let result;
+    try {
+      result = JSON.parse(text.replace(/```json|```/g, "").trim());
+    } catch {
+      return res.status(200).json({
+        comingSoon: false,
+        recommendedSize: "—",
+        notes: "We received your photo but could not parse the measurements automatically. Our team will review and follow up.",
+        confidence: "Manual review required",
+      });
+    }
     res.json(result);
   } catch (err) {
-    console.error("Measurement error:", err);
+    console.error("Measurement error:", err?.message ?? err);
     res.status(500).json({ error: "Analysis failed. Please try again." });
   }
 });
