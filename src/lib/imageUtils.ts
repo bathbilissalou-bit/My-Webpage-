@@ -58,16 +58,28 @@ async function compressToBlob(img: HTMLImageElement, quality: number): Promise<B
   const canvas = document.createElement("canvas");
   canvas.width = w;
   canvas.height = h;
-  const ctx = canvas.getContext("2d")!;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas unavailable");
   ctx.drawImage(img, 0, 0, w, h);
 
-  return new Promise((resolve, reject) =>
-    canvas.toBlob(
-      blob => (blob ? resolve(blob) : reject(new Error("Canvas compression failed"))),
-      "image/jpeg",
-      quality
-    )
-  );
+  // Primary path: toBlob (async, memory-efficient)
+  try {
+    const blob = await new Promise<Blob | null>(resolve =>
+      canvas.toBlob(resolve, "image/jpeg", quality)
+    );
+    if (blob) return blob;
+  } catch {
+    // fall through to toDataURL
+  }
+
+  // Fallback: toDataURL — synchronous, universally supported (incl. iOS Safari)
+  const dataUrl = canvas.toDataURL("image/jpeg", quality);
+  const b64 = dataUrl.split(",")[1];
+  if (!b64) throw new Error("Canvas export failed");
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new Blob([bytes], { type: "image/jpeg" });
 }
 
 export async function processImageForUpload(
@@ -80,8 +92,14 @@ export async function processImageForUpload(
 
   // 1. HEIC/HEIF conversion (iPhone default format)
   if (isHeic(file)) {
-    onProgress?.("Converting HEIC to JPEG…");
-    sourceBlob = await convertHeicToBlob(file);
+    onProgress?.("Converting HEIC…");
+    try {
+      sourceBlob = await convertHeicToBlob(file);
+    } catch {
+      // heic2any failed — iOS Safari can often render HEIC natively in canvas,
+      // so fall through and attempt canvas load directly.
+      sourceBlob = file;
+    }
   }
 
   // 2. Load into canvas for resize + compress

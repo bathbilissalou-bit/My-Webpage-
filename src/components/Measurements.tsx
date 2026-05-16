@@ -40,6 +40,7 @@ export function Measurements() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MeasurementResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [needsFile, setNeedsFile] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -66,16 +67,27 @@ export function Measurements() {
     setError(null);
     setResult(null);
     setUploadStatus("");
+    setNeedsFile(false);
 
-    // Show immediate preview using object URL
-    const url = URL.createObjectURL(selected);
-    setPreview(url);
+    // Preview: try createObjectURL first, fall back to FileReader (safer on iOS)
+    try {
+      const url = URL.createObjectURL(selected);
+      setPreview(url);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = e => setPreview(e.target?.result as string ?? null);
+      reader.readAsDataURL(selected);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) { setError(t.measurements.uploadError[lang]); return; }
-
+    if (!file) {
+      setNeedsFile(true);
+      setError(null);
+      return;
+    }
+    setNeedsFile(false);
     setLoading(true);
     setError(null);
     setResult(null);
@@ -83,7 +95,6 @@ export function Measurements() {
 
     try {
       const processed = await processImageForUpload(file, setUploadStatus);
-
       setUploadStatus(`Sending (${processed.compressedKB} KB)…`);
 
       const response = await fetch("/api/measurements/analyze", {
@@ -107,7 +118,13 @@ export function Measurements() {
       setResult(await response.json());
     } catch (err: unknown) {
       setUploadStatus("");
-      setError(err instanceof Error ? err.message : t.measurements.genericError[lang]);
+      const msg = err instanceof Error ? err.message : t.measurements.genericError[lang];
+      // Distinguish client-side processing errors from server errors
+      const isProcessingError = msg.includes("Canvas") || msg.includes("HEIC") || msg.includes("read");
+      setError(isProcessingError
+        ? `Could not process this image. Please try a JPG or PNG photo instead.`
+        : msg
+      );
     } finally {
       setLoading(false);
     }
@@ -286,28 +303,79 @@ export function Measurements() {
                   </div>
                 )}
 
-                <p style={{ fontSize: "0.65rem", color: "var(--text-dim)", marginTop: 8, lineHeight: 1.6 }}>
-                  {t.measurements.uploadHint[lang]}
-                </p>
+                {/* Photo-ready confirmation */}
+                {file && !loading && (
+                  <div style={{
+                    display: "flex", alignItems: "center", gap: 8,
+                    marginTop: 8, fontSize: "0.62rem", letterSpacing: "0.2em",
+                    textTransform: "uppercase", color: "var(--gold)",
+                  }}>
+                    <div style={{ width: 5, height: 5, background: "var(--gold)", transform: "rotate(45deg)" }} />
+                    <span>
+                      {lang === "fr" ? "Photo prête — analysez quand vous voulez"
+                        : lang === "es" ? "Foto lista — analice cuando quiera"
+                        : "Photo ready — analyse when ready"}
+                    </span>
+                  </div>
+                )}
+                {!file && (
+                  <p style={{ fontSize: "0.65rem", color: "var(--text-dim)", marginTop: 8, lineHeight: 1.6 }}>
+                    {t.measurements.uploadHint[lang]}
+                  </p>
+                )}
               </div>
 
               <textarea className="field" placeholder={t.measurements.notesPH[lang]}
                 value={notes} onChange={e => setNotes(e.target.value)}
                 style={{ height: 90, resize: "vertical" }} />
 
+              {/* Upload validation */}
+              {needsFile && !file && (
+                <div style={{
+                  display: "flex", alignItems: "center", gap: 10,
+                  padding: "12px 16px", border: "1px solid #8a3030",
+                  background: "rgba(90,20,20,0.18)",
+                }}>
+                  <div style={{ width: 5, height: 5, background: "#e88", transform: "rotate(45deg)", flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.78rem", color: "#e88" }}>
+                    {t.measurements.uploadError[lang]}
+                  </span>
+                </div>
+              )}
+
               <button
                 type="submit"
-                disabled={loading || !file}
+                disabled={loading}
                 className="btn-primary"
-                style={{ opacity: (loading || !file) ? 0.6 : 1, cursor: (loading || !file) ? "not-allowed" : "pointer", position: "relative" }}
+                aria-busy={loading}
+                style={{
+                  opacity: loading ? 0.65 : 1,
+                  cursor: loading ? "not-allowed" : "pointer",
+                  position: "relative",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+                  width: "100%",
+                }}
               >
-                {loading ? (uploadStatus || t.measurements.analyzingBtn[lang]) : t.measurements.analyzeBtn[lang]}
+                {loading && (
+                  <span className="spin-ring" aria-hidden />
+                )}
+                <span>{loading ? (uploadStatus || t.measurements.analyzingBtn[lang]) : t.measurements.analyzeBtn[lang]}</span>
               </button>
             </form>
 
             {error && (
-              <div style={{ marginTop: 20, padding: "14px 18px", border: "1px solid #5a2020", background: "#1a0808", color: "#e88", fontSize: "0.82rem", lineHeight: 1.6 }}>
-                {error}
+              <div style={{ marginTop: 20, padding: "16px 20px", border: "1px solid #5a2020", background: "#1a0808", display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ width: 5, height: 5, background: "#e88", transform: "rotate(45deg)", flexShrink: 0, marginTop: 5 }} />
+                <div>
+                  <p style={{ color: "#e88", fontSize: "0.82rem", lineHeight: 1.6, margin: "0 0 6px" }}>{error}</p>
+                  <button
+                    type="button"
+                    onClick={() => { setError(null); setResult(null); }}
+                    style={{ background: "transparent", border: "none", color: "#e88", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", textDecoration: "underline", padding: 0, opacity: 0.8 }}
+                  >
+                    {lang === "fr" ? "Réessayer" : lang === "es" ? "Intentar de nuevo" : "Try again"}
+                  </button>
+                </div>
               </div>
             )}
 
@@ -458,7 +526,6 @@ export function Measurements() {
           text-align: center;
           transition: border-color 0.2s, color 0.2s;
           width: 100%;
-          /* Large tap target for mobile */
           min-height: 88px;
           -webkit-tap-highlight-color: transparent;
           touch-action: manipulation;
@@ -469,6 +536,21 @@ export function Measurements() {
           outline: none;
         }
         .upload-btn:active { opacity: 0.75; }
+
+        /* Loading spinner */
+        @keyframes hp-spin {
+          to { transform: rotate(360deg); }
+        }
+        .spin-ring {
+          display: inline-block;
+          width: 14px; height: 14px;
+          border: 1.5px solid rgba(201,169,110,0.3);
+          border-top-color: var(--gold);
+          border-radius: 50%;
+          animation: hp-spin 0.7s linear infinite;
+          flex-shrink: 0;
+        }
+
         @media(max-width:768px){
           #measurements { padding: 80px 24px !important; }
           #measurements .section-inner > div:nth-child(2) {

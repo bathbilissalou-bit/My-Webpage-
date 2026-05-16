@@ -47,7 +47,7 @@ export default async function handler(req: any, res: any) {
   try {
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const response = await anthropic.messages.create({
-      model: "claude-opus-4-6",
+      model: "claude-sonnet-4-6",
       max_tokens: 1024,
       messages: [{
         role: "user",
